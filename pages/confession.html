@@ -156,6 +156,50 @@
 
     </script>
 
+    <script>
+
+        const toggle = document.querySelector(".menu-toggle");
+        const menu = document.querySelector(".menu");
+
+        // Mở / đóng menu
+        toggle.addEventListener("click", () => {
+
+            menu.classList.toggle("show");
+
+            toggle.textContent =
+                menu.classList.contains("show")
+                    ? "✕"
+                    : "☰";
+
+        });
+
+        // Bấm vào link thì đóng menu
+        document.querySelectorAll(".menu a").forEach(link => {
+
+            link.addEventListener("click", () => {
+
+                menu.classList.remove("show");
+                toggle.textContent = "☰";
+
+            });
+
+        });
+
+        // Bấm ra ngoài thì đóng menu
+        document.addEventListener("click", (e) => {
+
+            if (
+                !menu.contains(e.target) &&
+                !toggle.contains(e.target)
+            ) {
+
+                menu.classList.remove("show");
+                toggle.textContent = "☰";
+
+            }
+
+        });
+    </script>
 </body>
 
 </html>
