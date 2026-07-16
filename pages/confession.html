@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confession</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <nav>
+        <div class="logo">
+            <a href="../index.html" class="logo">
+                🏕️ BTN Linh Xuân
+            </a>
+        </div>
+
+        <button class="menu-toggle" type="button">
+            ☰
+        </button>
+
+        <div class="menu">
+            <a href="../index.html">Home</a>
+            <a href="schedule.html">Lịch trình</a>
+            <a href="confession.html" class="active">Confession</a>
+            <a href="letter.html">Gửi thư</a>
+            <a href="btc.html">BTC</a>
+            <a href="groups.html">Danh sách nhóm</a>
+            <a href="gallery.html">Khoảnh khắc</a>
+        </div>
+    </nav>
+
+    <section class="page-title">
+        <h1>🤍 Confession</h1>
+        <p>Gửi lời nhắn ẩn danh đến mọi người.</p>
+    </section>
+
+    <form class="confession-form" id="confessionForm">
+
+        <label>Tên</label>
+
+        <div class="name-option">
+
+            <label class="radio-option">
+                <input type="radio" name="identity" value="name" checked>
+                Hiện tên
+            </label>
+
+            <label class="radio-option">
+                <input type="radio" name="identity" value="anonymous">
+                Ẩn danh
+            </label>
+
+        </div>
+
+        <input type="text" id="name" placeholder="Tên của bạn" required>
+
+        <label>Nội dung</label>
+        <textarea id="message" rows="8" placeholder="Viết confession..."></textarea>
+
+        <button type="submit">
+            🤍 Gửi confession
+        </button>
+
+    </form>
+
+    <footer>
+        <p>© 2026 BTN Linh Xuân Camp</p>
+        <p>Made with Diệp Đoan Trinh</p>
+    </footer>
+
+    <script>
+        const nameInput = document.getElementById("name");
+
+        const radios = document.querySelectorAll(
+            'input[name="identity"]'
+        );
+
+        radios.forEach(radio => {
+
+            radio.addEventListener("change", function () {
+
+                if (this.value === "anonymous") {
+
+                    nameInput.value = "";
+                    nameInput.disabled = true;
+                    nameInput.required = false;
+                    nameInput.placeholder = "Đang gửi ẩn danh";
+
+                } else {
+
+                    nameInput.disabled = false;
+                    nameInput.required = true;
+                    nameInput.placeholder = "Tên của bạn";
+
+                }
+
+            });
+
+        });
+    </script>
+
+    <script>
+
+        const scriptURL = "https://script.google.com/macros/s/AKfycbwlTWE9PzNF3gDlo9Ebu3YT1xNqDoIzYItdy7KyWWVxhnBwC0GnJzYqv92Ncuh1wlsVBg/exec";
+
+        const form = document.getElementById("confessionForm");
+
+        form.addEventListener("submit", function (e) {
+
+            e.preventDefault();
+
+            const identity =
+                document.querySelector('input[name="identity"]:checked').value;
+
+            const data = {
+
+                anonymous: identity === "anonymous",
+                name: document.getElementById("name").value,
+                message: document.getElementById("message").value
+
+            };
+
+            fetch(scriptURL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "text/plain;charset=utf-8"
+                },
+                body: JSON.stringify(data)
+            })
+                .then(() => {
+
+                    alert("🤍 Confession đã được gửi!");
+
+                    form.reset();
+
+                    document.querySelector(
+                        'input[value="name"]'
+                    ).checked = true;
+
+                    nameInput.disabled = false;
+                    nameInput.required = true;
+                    nameInput.placeholder = "Tên của bạn";
+
+                })
+                .catch(err => {
+
+                    console.log(err);
+                    alert("Có lỗi xảy ra!");
+
+                });
+
+        });
+
+    </script>
+
+</body>
+
+</html>

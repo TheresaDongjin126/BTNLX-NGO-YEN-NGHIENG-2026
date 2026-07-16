@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trại truyền thống BTN Linh Xuân 2026</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="intro-screen">
+        <div class="intro-content">
+            <h2>👋 Xin chào Trại sinh!</h2>
+        </div>
+    </div>
+    <!-- Navigation -->
+    <header>
+
+        <nav>
+            <div class="logo">
+                <a href="index.html">
+                    🏕️ BTN Linh Xuân
+                </a>
+            </div>
+
+            <button class="menu-toggle" type="button">
+                ☰
+            </button>
+
+            <div class="menu">
+                <a href="index.html" class="active">Home</a>
+                <a href="pages/schedule.html">Lịch trình</a>
+                <a href="pages/confession.html">Confession</a>
+                <a href="pages/letter.html">Gửi thư</a>
+                <a href="pages/btc.html">BTC</a>
+                <a href="pages/groups.html">Danh sách nhóm</a>
+                <a href="pages/gallery.html">Khoảnh khắc</a>
+
+            </div>
+        </nav>
+    </header>
+
+    <section class="countdown">
+
+        <h2>⏳ Đếm ngược đến ngày khởi hành</h2>
+
+        <div class="countdown-container">
+
+            <div class="time-box">
+                <span id="days">00</span>
+                <p>Ngày</p>
+            </div>
+
+            <div class="time-box">
+                <span id="hours">00</span>
+                <p>Giờ</p>
+            </div>
+
+            <div class="time-box">
+                <span id="minutes">00</span>
+                <p>Phút</p>
+            </div>
+
+            <div class="time-box">
+                <span id="seconds">00</span>
+                <p>Giây</p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Hero -->
+    <section id="home" class="hero">
+        <img src="images/demo/banner.png" alt="Banner Trại" class="hero-image">
+        <h1>🏕️ Trại truyền thống BTN Linh Xuân 2026</h1>
+        <p class="hero-subtitle">
+            Website chính thức dành cho Trại sinh BTN Linh Xuân.
+        </p>
+
+        <p class="hero-info">
+            📅 30/08/2026 - 03/09/2026 ⛪ Hội Thánh Tin Lành Buôn Ma Thuột
+        </p>
+
+        <a href="pages/schedule.html" class="hero-button">
+            📅 Xem lịch trình
+        </a>
+    </section>
+
+    <!-- Bible Verse -->
+    <section class="verse">
+        <h2>📖 Câu gốc</h2>
+        <h3>Thi Thiên 62:1-2</h3>
+        <p>"Linh hồn tôi nghỉ an nơi một mình Đức Chúa Trời; Sự cứu rỗi tôi từ Ngài mà đến.
+            Một mình Ngài là hòn đá tôi, Sự cứu rỗi tôi, Và là nơi ẩn náu cao của tôi;
+            Tôi sẽ chẳng bị rúng động nhiều."
+        </p>
+    </section>
+
+    <section class="features">
+        <h2>Bạn có thể</h2>
+        <p class="section-description">
+            Khám phá các tiện ích dành riêng cho Trại sinh.
+        </p>
+        <div class="card-container">
+            <a href="pages/schedule.html" class="card">
+                <h2>📅</h2>
+                <h3>Lịch trình</h3>
+                <p>Xem toàn bộ lịch trình, thời gian sinh hoạt và các hoạt động trong suốt kỳ trại.</p>
+            </a>
+
+            <a href="pages/confession.html" class="card">
+                <h2>🤍</h2>
+                <h3>Confession</h3>
+                <p>Gửi lời nhắn ẩn danh để chia sẻ cảm nghĩ, động viên hoặc bày tỏ những điều bạn muốn nói với mọi
+                    người.</p>
+            </a>
+
+            <a href="pages/letter.html" class="card">
+                <h2>💌</h2>
+                <h3>Gửi thư</h3>
+                <p>Viết thư gửi trực tiếp đến một trại sinh hoặc thành viên BTC. Thư sẽ được chuyển đến đúng người
+                    nhận.
+                </p>
+            </a>
+
+            <a href="pages/groups.html" class="card">
+                <h2>👥</h2>
+                <h3>Danh sách nhóm</h3>
+                <p>Xem thông tin các nhóm trại, trưởng nhóm và danh sách thành viên của từng nhóm.</p>
+            </a>
+
+            <a href="pages/btc.html" class="card">
+                <h2>📞</h2>
+                <h3>Liên hệ BTC</h3>
+                <p>Xem danh sách Ban Tổ chức cùng số điện thoại để liên hệ khi cần hỗ trợ trong suốt kỳ trại.</p>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 BTN Linh Xuân Camp</p>
+        <p>Made with Diệp Đoan Trinh</p>
+    </footer>
+    <script>
+        setTimeout(function () {
+            document.querySelector(".intro-screen").remove();
+        }, 1500);
+    </script>
+
+    <script>
+
+        window.addEventListener("resize", () => {
+            if (window.innerWidth > 900) {
+                menu.classList.remove("show");
+            }
+        });
+
+        const toggle = document.querySelector(".menu-toggle");
+        const menu = document.querySelector(".menu");
+
+        if (toggle && menu) {
+
+            toggle.addEventListener("click", () => {
+
+                menu.classList.toggle("show");
+
+                toggle.textContent =
+                    menu.classList.contains("show")
+                        ? "✕"
+                        : "☰";
+
+            });
+
+        }
+
+        toggle.addEventListener("click", () => {
+            menu.classList.toggle("show");
+            toggle.textContent =
+                menu.classList.contains("show")
+                    ? "✕"
+                    : "☰";
+            document.querySelectorAll(".menu a").forEach(link => {
+                link.addEventListener("click", () => {
+                    menu.classList.remove("show");
+                });
+            });
+        });
+
+        document.addEventListener("click", function (e) {
+            if (
+                !menu.contains(e.target) &&
+                !toggle.contains(e.target)
+            ) {
+
+                menu.classList.remove("show");
+
+            }
+        });
+
+        const targetDate = new Date("August 30, 2026 11:00:00").getTime();
+
+        function countdown() {
+
+            const now = new Date().getTime();
+
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+
+                document.getElementById("days").innerHTML = "00";
+                document.getElementById("hours").innerHTML = "00";
+                document.getElementById("minutes").innerHTML = "00";
+                document.getElementById("seconds").innerHTML = "00";
+
+                return;
+
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+
+            const hours = Math.floor(
+                (distance % (1000 * 60 * 60 * 24))
+                / (1000 * 60 * 60)
+            );
+
+            const minutes = Math.floor(
+                (distance % (1000 * 60 * 60))
+                / (1000 * 60)
+            );
+
+            const seconds = Math.floor(
+                (distance % (1000 * 60))
+                / 1000
+            );
+
+            document.getElementById("days").innerHTML = days;
+            document.getElementById("hours").innerHTML = hours;
+            document.getElementById("minutes").innerHTML = minutes;
+            document.getElementById("seconds").innerHTML = seconds;
+        }
+        countdown();
+        setInterval(countdown, 1000);
+    </script>
+</body>
+
+</html>
