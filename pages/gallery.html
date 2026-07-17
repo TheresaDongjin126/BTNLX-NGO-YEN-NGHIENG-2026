@@ -58,7 +58,8 @@
         const toggle = document.querySelector(".menu-toggle");
         const menu = document.querySelector(".menu");
 
-        // Mở / đóng menu
+        // ================= MENU =================
+
         toggle.addEventListener("click", () => {
 
             menu.classList.toggle("show");
@@ -70,7 +71,6 @@
 
         });
 
-        // Bấm vào link thì đóng menu
         document.querySelectorAll(".menu a").forEach(link => {
 
             link.addEventListener("click", () => {
@@ -82,7 +82,6 @@
 
         });
 
-        // Bấm ra ngoài thì đóng menu
         document.addEventListener("click", (e) => {
 
             if (
@@ -97,8 +96,12 @@
 
         });
 
+        // ================= API =================
+
         const api =
             "https://script.google.com/macros/s/AKfycbzs21sCd4Yewd3aEe4MAjzMhOWn6DTPCeJid05KJnSXyrX_nHYMXm_dETfxSh0EJmLFOw/exec";
+
+        // ================= LOAD POSTS =================
 
         function loadPosts() {
 
@@ -112,30 +115,122 @@
 
                     data.forEach(post => {
 
+                        let imageHTML = "";
+
+                        // ===== 1 ảnh =====
+
+                        if (post.images.length === 1) {
+
+                            imageHTML = `
+                            <img
+                                src="${post.images[0]}"
+                                class="post-image">
+                        `;
+
+                        }
+
+                        // ===== nhiều ảnh =====
+
+                        else {
+
+                            imageHTML = `
+                            <div class="slider"
+                                data-images='${JSON.stringify(post.images)}'>
+        
+                                <button class="prev">‹</button>
+        
+                                <img
+                                    src="${post.images[0]}"
+                                    class="slider-image">
+        
+                                <button class="next">›</button>
+        
+                                <div class="counter">
+                                    1 / ${post.images.length}
+                                </div>
+        
+                            </div>
+                        `;
+
+                        }
+
                         posts.innerHTML += `
-            <div class="post">
+        
+                        <div class="post">
+        
+                            <div class="post-header">
+                                👤 ${post.name}
+                            </div>
+        
+                            ${imageHTML}
+        
+                            <div class="post-caption">
+                                ${post.caption}
+                            </div>
+        
+                            <div class="post-time">
+                                ${new Date(post.time).toLocaleString("vi-VN")}
+                            </div>
+        
+                        </div>
+        
+                    `;
 
-                <div class="post-header">
-                    👤 ${post.name}
-                </div>
+                    });
 
-                <img src="${post.image}" class="post-image">
+                    // ================= SLIDER =================
 
-                <div class="post-caption">
-                    ${post.caption}
-                </div>
+                    document.querySelectorAll(".slider").forEach(slider => {
 
-                <div class="post-time">
-                    ${new Date(post.time).toLocaleString("vi-VN")}
-                </div>
-            </div>
-            `;
+                        const images =
+                            JSON.parse(slider.dataset.images);
+
+                        let index = 0;
+
+                        const img =
+                            slider.querySelector(".slider-image");
+
+                        const counter =
+                            slider.querySelector(".counter");
+
+                        slider.querySelector(".next").onclick = () => {
+
+                            index++;
+
+                            if (index >= images.length)
+                                index = 0;
+
+                            img.src = images[index];
+
+                            counter.textContent =
+                                `${index + 1} / ${images.length}`;
+
+                        };
+
+                        slider.querySelector(".prev").onclick = () => {
+
+                            index--;
+
+                            if (index < 0)
+                                index = images.length - 1;
+
+                            img.src = images[index];
+
+                            counter.textContent =
+                                `${index + 1} / ${images.length}`;
+
+                        };
+
                     });
 
                 });
+
         }
+
         loadPosts();
+
         setInterval(loadPosts, 15000);
+
     </script>
 </body>
 
