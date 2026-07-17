@@ -626,8 +626,8 @@ select {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(255, 255, 255, .90);
-    backdrop-filter: blur(8px);
+    background: rgba(255, 255, 255, .85);
+    backdrop-filter: blur(15px);
     z-index: 9999;
     animation: introFade 1.5s forwards;
 }
