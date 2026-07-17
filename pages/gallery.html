@@ -46,7 +46,9 @@
 
     <section class="feed">
 
-        <div id="posts"></div>
+        <div id="posts">
+            <p id="loading">📸 Đang tải khoảnh khắc...</p>
+        </div>
 
     </section>
 
@@ -97,49 +99,42 @@
         const api =
             "https://script.google.com/macros/s/AKfycbzs21sCd4Yewd3aEe4MAjzMhOWn6DTPCeJid05KJnSXyrX_nHYMXm_dETfxSh0EJmLFOw/exec";
 
-        fetch(api)
-            .then(res => {
-                console.log("Status:", res.status);
-                return res.json();
-            })
-            .then(data => {
+        function loadPosts() {
 
-                console.log("DATA =", data);
+            fetch(api)
+                .then(res => res.json())
+                .then(data => {
 
-                const posts = document.getElementById("posts");
+                    const posts = document.getElementById("posts");
 
-                data.forEach(post => {
+                    posts.innerHTML = "";
 
-                    console.log(post);
+                    data.forEach(post => {
 
-                    const card = document.createElement("div");
+                        posts.innerHTML += `
+            <div class="post">
 
-                    card.className = "post";
+                <div class="post-header">
+                    👤 ${post.name}
+                </div>
 
-                    card.innerHTML = `
-            <div class="post-header">
-                👤 ${post.name}
+                <img src="${post.image}" class="post-image">
+
+                <div class="post-caption">
+                    ${post.caption}
+                </div>
+
+                <div class="post-time">
+                    ${new Date(post.time).toLocaleString("vi-VN")}
+                </div>
             </div>
-
-            <img src="${post.image}" class="post-image">
-
-            <div class="post-caption">
-                ${post.caption}
-            </div>
-
-            <div class="post-time">
-                ${new Date(post.time).toLocaleString("vi-VN")}
-            </div>
-        `;
-        console.log(card);
-                    posts.appendChild(card);
+            `;
+                    });
 
                 });
-
-            })
-            .catch(err => {
-                console.error(err);
-            });
+        }
+        loadPosts();
+        setInterval(loadPosts, 15000);
     </script>
 </body>
 
