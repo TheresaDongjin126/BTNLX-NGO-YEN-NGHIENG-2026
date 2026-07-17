@@ -223,15 +223,8 @@ nav {
         transform .3s,
         background .3s,
         box-shadow .3s;
-
     font-weight: bold;
     box-shadow: 0 6px 20px rgba(0, 0, 0, .15);
-}
-
-.hero-button:hover {
-    background-color: green;
-    transform: scale(1.05);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, .18);
 }
 
 .hero-info {
@@ -430,6 +423,17 @@ section {
         width: 100%;
         text-align: center;
         padding: 12px 0;
+    }
+
+    .slider button{
+        width:38px;
+        height:38px;
+        font-size:22px;
+    }
+    
+    .counter{
+        font-size:12px;
+        padding:5px 10px;
     }
 }
 
@@ -851,39 +855,109 @@ select {
 
 /* ===================== FEED ===================== */
 
-.feed{
+.feed {
     max-width: 800px;
-    width:100%;
+    width: 100%;
     margin: 40px auto;
-    padding:0 20px;
+    padding: 0 20px;
 }
 
-.post{
-    background:white;
-    border-radius:18px;
-    overflow:hidden;
-    margin-bottom:30px;
-    box-shadow:0 8px 25px rgba(0,0,0,.08);
+.post {
+    background: white;
+    border-radius: 18px;
+    overflow: hidden;
+    margin-bottom: 30px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .08);
 }
 
-.post-header{
-    padding:18px 20px;
-    font-weight:bold;
-    color:darkblue;
+.post-header {
+    padding: 18px 20px;
+    font-weight: bold;
+    color: darkblue;
 }
 
-.post-image{
-    width:100%;
-    display:block;
+.post-image {
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
-.post-caption{
-    padding:18px 20px 8px;
-    line-height:1.7;
+.post-caption {
+    padding: 18px 20px 8px;
+    line-height: 1.7;
 }
 
-.post-time{
-    padding:0 20px 20px;
-    color:#888;
-    font-size:14px;
+.post-time {
+    padding: 0 20px 20px;
+    color: #888;
+    font-size: 14px;
+}
+
+.slider {
+    position: relative;
+    background: #000;
+}
+
+.slider-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.slider button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 45px;
+    height: 45px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(0, 0, 0, .45);
+
+    color: white;
+
+    font-size: 28px;
+    line-height: 1;
+
+    cursor: pointer;
+
+    z-index: 10;
+}
+
+.slider button:hover {
+    background: rgba(0, 0, 0, .7);
+}
+
+.slider button:active{
+    transform:translateY(-50%) scale(.92);
+}
+
+.prev {
+    left: 15px;
+}
+
+.next {
+    right: 15px;
+}
+
+.counter {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+
+    background: rgba(0, 0, 0, .55);
+    color: white;
+
+    padding: 6px 12px;
+    border-radius: 20px;
+
+    font-size: 14px;
+    font-weight: bold;
 }
