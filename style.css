@@ -290,10 +290,6 @@ nav {
     margin: 10px 0 20px;
 }
 
-.verse p {
-    white-space: pre-line;
-}
-
 .verse p:last-child {
     max-width: 800px;
     margin: auto;
