@@ -95,18 +95,22 @@
         });
 
         const api =
-            "https://script.google.com/macros/s/AKfycbwnpZW-DMX0AyiCGDkMfUPMMhPgMpiK58F73z2uFmo8/exec";
+            "https://script.google.com/macros/s/AKfycbzs21sCd4Yewd3aEe4MAjzMhOWn6DTPCeJid05KJnSXyrX_nHYMXm_dETfxSh0EJmLFOw/exec";
 
-        fetch(api, {
-            method: "GET",
-            mode: "cors"
-        })
-            .then(res => res.json())
+        fetch(api)
+            .then(res => {
+                console.log("Status:", res.status);
+                return res.json();
+            })
             .then(data => {
 
-                console.log(data);
+                console.log("DATA =", data);
+
+                const posts = document.getElementById("posts");
 
                 data.forEach(post => {
+
+                    console.log(post);
 
                     const card = document.createElement("div");
 
@@ -127,11 +131,14 @@
                 ${new Date(post.time).toLocaleString("vi-VN")}
             </div>
         `;
-
+        console.log(card);
                     posts.appendChild(card);
 
                 });
 
+            })
+            .catch(err => {
+                console.error(err);
             });
     </script>
 </body>
