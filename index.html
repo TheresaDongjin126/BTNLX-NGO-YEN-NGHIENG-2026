@@ -142,74 +142,64 @@
 
     <script>
 
-        window.addEventListener("resize", () => {
-            if (window.innerWidth > 900) {
-                menu.classList.remove("show");
-            }
+        const toggle = document.querySelector(".menu-toggle");
+        const menu = document.querySelector(".menu");
+
+        // Mở / đóng menu
+        toggle.addEventListener("click", () => {
+
+            menu.classList.toggle("show");
+
+            toggle.textContent =
+                menu.classList.contains("show")
+                    ? "✕"
+                    : "☰";
+
         });
 
-        const toggle = document.querySelector(".menu-toggle");
-const menu = document.querySelector(".menu");
+        // Bấm vào link thì đóng menu
+        document.querySelectorAll(".menu a").forEach(link => {
 
-// Mở / đóng menu
-toggle.addEventListener("click", () => {
+            link.addEventListener("click", () => {
 
-    menu.classList.toggle("show");
+                menu.classList.remove("show");
+                toggle.textContent = "☰";
 
-    toggle.textContent =
-        menu.classList.contains("show")
-        ? "✕"
-        : "☰";
+            });
 
-});
+        });
 
-// Bấm vào link thì đóng menu
-document.querySelectorAll(".menu a").forEach(link => {
+        // Bấm ra ngoài thì đóng menu
+        document.addEventListener("click", (e) => {
 
-    link.addEventListener("click", () => {
+            if (
+                !menu.contains(e.target) &&
+                !toggle.contains(e.target)
+            ) {
 
-        menu.classList.remove("show");
-        toggle.textContent = "☰";
+                menu.classList.remove("show");
+                toggle.textContent = "☰";
 
-    });
+            }
 
-});
+        });
 
-// Bấm ra ngoài thì đóng menu
-document.addEventListener("click", (e) => {
+        // Resize về desktop thì reset menu
+        window.addEventListener("resize", () => {
 
-    if (
-        !menu.contains(e.target) &&
-        !toggle.contains(e.target)
-    ) {
+            if (window.innerWidth > 1000) {
 
-        menu.classList.remove("show");
-        toggle.textContent = "☰";
+                menu.classList.remove("show");
+                toggle.textContent = "☰";
 
-    }
+            }
 
-});
-
-// Resize về desktop thì reset menu
-window.addEventListener("resize", () => {
-
-    if (window.innerWidth > 1000) {
-
-        menu.classList.remove("show");
-        toggle.textContent = "☰";
-
-    }
-
-});
+        });
 
         const targetDate = new Date("August 30, 2026 11:00:00").getTime();
-
         function countdown() {
-
             const now = new Date().getTime();
-
             const distance = targetDate - now;
-
             if (distance < 0) {
 
                 document.getElementById("days").innerHTML = "00";
