@@ -29,21 +29,24 @@
     </nav>
 
     <section class="page-title">
+
         <h1>📸 Khoảnh khắc Trại</h1>
 
         <p>
             Những hình ảnh đẹp được cập nhật trong suốt kỳ trại.
         </p>
+
+        <a href="https://forms.gle/Zti5JjRxk8KxdCaSA" target="_blank" class="hero-button">
+
+            📤 Đăng khoảnh khắc
+
+        </a>
+
     </section>
 
-    <section class="gallery">
+    <section class="feed">
 
-        <img src="../images/gallery/1.jpg">
-        <img src="../images/gallery/2.jpg">
-        <img src="../images/gallery/3.jpg">
-        <img src="../images/gallery/4.jpg">
-        <img src="../images/gallery/5.jpg">
-        <img src="../images/gallery/6.jpg">
+        <div id="posts"></div>
 
     </section>
 
@@ -90,6 +93,46 @@
             }
 
         });
+
+        const api =
+            "https://script.google.com/macros/s/AKfycbwnpZW-DMX0AyiCGDkMfUPMMhPgMpiK58F73z2uFmo8/exec";
+
+        fetch(api, {
+            method: "GET",
+            mode: "cors"
+        })
+            .then(res => res.json())
+            .then(data => {
+
+                const posts = document.getElementById("posts");
+
+                data.forEach(post => {
+
+                    const card = document.createElement("div");
+
+                    card.className = "post";
+
+                    card.innerHTML = `
+            <div class="post-header">
+                👤 ${post.name}
+            </div>
+
+            <img src="${post.image}" class="post-image">
+
+            <div class="post-caption">
+                ${post.caption}
+            </div>
+
+            <div class="post-time">
+                ${new Date(post.time).toLocaleString("vi-VN")}
+            </div>
+        `;
+
+                    posts.appendChild(card);
+
+                });
+
+            });
     </script>
 </body>
 
