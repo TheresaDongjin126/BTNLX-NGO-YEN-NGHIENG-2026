@@ -1,0 +1,16 @@
+{
+    "name": "Trại Truyền Thống BTN Linh Xuân 2026",
+    "short_name": "BTN LX",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#f5f3ec",
+    "theme_color": "#123b8d",
+  
+    "icons": [
+      {
+        "src": "images/icon.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      }
+    ]
+  }
