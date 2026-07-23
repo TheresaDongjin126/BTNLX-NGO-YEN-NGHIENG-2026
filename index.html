@@ -28,7 +28,6 @@
     </div>
     <!-- Navigation -->
     <header>
-                    <!--  XUẤT PNG LOGO SAU -->
         <nav>
             <div class="logo">
                 <a href="index.html">
@@ -83,16 +82,22 @@
     </section>
 
     <!-- Hero -->
-    <section class="hero"></section>
-
-    <!-- Bible Verse -->
-    <section class="verse">
-        <h2>📖 Câu gốc</h2>
-        <h3>Thi Thiên 62:1-2</h3>
-        <p>"Linh hồn tôi nghỉ an nơi một mình Đức Chúa Trời; Sự cứu rỗi tôi từ Ngài mà đến.
-            Một mình Ngài là hòn đá tôi, Sự cứu rỗi tôi, Và là nơi ẩn náu cao của tôi;
-            Tôi sẽ chẳng bị rúng động nhiều."
-        </p>
+    <section class="hero" id="hero">
+        <div class="hero-hint">
+            📖 Nhấn để đọc câu gốc chủ đề Trại 2026
+        </div>
+        <div class="hero-overlay">
+            <h2>📖 Thi Thiên 62:1–2</h2>
+            <p>
+                "Linh hồn tôi nghỉ an nơi một mình Đức Chúa Trời;<br>
+                Sự cứu rỗi tôi từ Ngài mà đến.<br>
+                Một mình Ngài là hòn đá tôi, sự cứu rỗi tôi,<br>
+                Và là nơi ẩn náu cao của tôi;<br>
+                Tôi sẽ chẳng bị rúng động nhiều."
+            </p>
+            <small>Nhấn lần nữa để đóng</small>
+        </div>
+    
     </section>
 
     <section class="features">
@@ -131,6 +136,7 @@
     <footer>
         <p>Designed & Developed by Diệp Đoan Trinh</p>
     </footer>
+    
     <script>
         setTimeout(function () {
             document.querySelector(".intro-screen").remove();
@@ -232,6 +238,11 @@
         }
         countdown();
         setInterval(countdown, 1000);
+
+        const hero = document.getElementById("hero");
+        hero.addEventListener("click", () => {
+        hero.classList.toggle("show");
+});
     </script>
 </body>
 
