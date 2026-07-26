@@ -1,106 +1,155 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danh sách nhóm trại</title>
+    <title>Danh sách nhóm trại - Ngờ Yên Nghiêng</title>
     <link rel="stylesheet" href="../style.css">
 </head>
 
 <body>
-    <nav>
-        <div class="logo">
-            <a href="../index.html">
-                <img src="../images/logo.png" alt="NGỜ YÊN NGHIÊNG">
-            </a>
-        </div>
-
-        <button class="menu-toggle" type="button">
-            ☰
-        </button>
-
-        <div class="menu">
-            <a href="../index.html">Home</a>
-            <a href="schedule.html">Lịch trình</a>
-            <a href="confession.html">Confession</a>
-            <a href="btc.html">BTC</a>
-            <a href="groups.html" class="active">Danh sách nhóm</a>
-            <a href="gallery.html">Khoảnh khắc</a>
-        </div>
-    </nav>
-
-    <section class="page-title glass">
-        <h1>🏕️ Danh sách nhóm</h1>
-        <p>
-            Tìm nhóm của bạn và cùng đồng hành trong suốt kỳ trại.
-        </p>
-    </section>
-
-    <section class="groups">
-        <div class="group-card">
-            <h2>🟢 Nhóm 1</h2>
-            <p><strong>👥 12 thành viên</strong></p>
-            <div class="leader">
-                <h3>👑 Trưởng nhóm: Nguyễn Thị Tường Vy</h3>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="../images/logo.png" alt="NGỜ YÊN NGHIÊNG">
+                </a>
             </div>
 
-            <hr>
+            <button class="menu-toggle" type="button" aria-label="Toggle navigation">
+                ☰
+            </button>
 
-            <ul class="member-list">
-                <li>🙋 Nguyễn Văn A</li>
-                <li>🙋 Trần Văn B</li>
-                <li>🙋 Lê Văn C</li>
-             </ul>
-        </div>
-    </section>
+            <div class="menu">
+                <a href="../index.html">Home</a>
+                <a href="schedule.html">Lịch trình</a>
+                <a href="confession.html">Confession</a>
+                <a href="btc.html">BTC</a>
+                <a href="groups.html" class="active">Danh sách nhóm</a>
+                <a href="gallery.html">Khoảnh khắc</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- Header trang -->
+        <section class="page-title glass">
+            <h1>🏕️ Danh sách nhóm Trại</h1>
+            <p>Tìm nhóm của bạn và bắt đầu hành trình đồng hành cùng nhau nhé!</p>
+            
+            <!-- Ô tìm kiếm thông minh -->
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchInput" placeholder="Nhập tên thành viên hoặc tên nhóm để tìm...">
+            </div>
+        </section>
+
+        <!-- Danh sách các nhóm -->
+        <section class="groups-grid">
+            
+            <!-- Nhóm 1 -->
+            <div class="group-card glass">
+                <div class="card-header">
+                    <div class="group-badge badge-green">
+                        <span class="dot"></span> Nhóm 01
+                    </div>
+                    <span class="member-count">👥 12/12</span>
+                </div>
+
+                <div class="leader-box">
+                    <div class="crown">👑</div>
+                    <div class="leader-info">
+                        <span class="role">Trưởng nhóm</span>
+                        <strong class="name">Nguyễn Thị Tường Vy</strong>
+                    </div>
+                </div>
+
+                <div class="members-section">
+                    <h4>Thành viên nhóm</h4>
+                    <div class="members-chips">
+                        <span class="chip">🙋 Nguyễn Văn A</span>
+                        <span class="chip">🙋 Trần Văn B</span>
+                        <span class="chip">🙋 Lê Văn C</span>
+                        <span class="chip">🙋 Phạm Hoàng D</span>
+                        <span class="chip">🙋 Hoàng Thị E</span>
+                        <span class="chip">🙋 Vu Văn F</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nhóm 2 (Mẫu nhóm khác để test grid) -->
+            <div class="group-card glass">
+                <div class="card-header">
+                    <div class="group-badge badge-orange">
+                        <span class="dot"></span> Nhóm 02
+                    </div>
+                    <span class="member-count">👥 10/12</span>
+                </div>
+
+                <div class="leader-box">
+                    <div class="crown">👑</div>
+                    <div class="leader-info">
+                        <span class="role">Trưởng nhóm</span>
+                        <strong class="name">Nguyễn Đào Xuân Bách</strong>
+                    </div>
+                </div>
+
+                <div class="members-section">
+                    <h4>Thành viên nhóm</h4>
+                    <div class="members-chips">
+                        <span class="chip">🙋 Đỗ Anh G</span>
+                        <span class="chip">🙋 Nguyễn Mai H</span>
+                        <span class="chip">🙋 Lý Văn K</span>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
 
     <footer>
         <p>Designed & Developed by Diệp Đoan Trinh</p>
     </footer>
 
     <script>
-
+        // JS Toggle Menu
         const toggle = document.querySelector(".menu-toggle");
         const menu = document.querySelector(".menu");
 
-        // Mở / đóng menu
         toggle.addEventListener("click", () => {
-
             menu.classList.toggle("show");
-
-            toggle.textContent =
-                menu.classList.contains("show")
-                    ? "✕"
-                    : "☰";
-
+            toggle.textContent = menu.classList.contains("show") ? "✕" : "☰";
         });
 
-        // Bấm vào link thì đóng menu
         document.querySelectorAll(".menu a").forEach(link => {
-
             link.addEventListener("click", () => {
-
                 menu.classList.remove("show");
                 toggle.textContent = "☰";
-
             });
-
         });
 
-        // Bấm ra ngoài thì đóng menu
         document.addEventListener("click", (e) => {
-
-            if (
-                !menu.contains(e.target) &&
-                !toggle.contains(e.target)
-            ) {
-
+            if (!menu.contains(e.target) && !toggle.contains(e.target)) {
                 menu.classList.remove("show");
                 toggle.textContent = "☰";
-
             }
+        });
 
+        // Tìm kiếm nhóm / thành viên thời gian thực
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('keyup', function() {
+            const query = this.value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.group-card');
+
+            cards.forEach(card => {
+                const cardText = card.textContent.toLowerCase();
+                if (cardText.includes(query)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
         });
     </script>
 </body>
