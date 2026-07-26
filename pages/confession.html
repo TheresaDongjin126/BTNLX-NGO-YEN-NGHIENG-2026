@@ -1,202 +1,223 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confession</title>
+    <title>Confession - Ngờ Yên Nghiêng</title>
     <link rel="stylesheet" href="../style.css">
 </head>
 
 <body>
-    <nav>
-        <div class="logo">
-            <a href="../index.html">
-                <img src="../images/logo.png" alt="NGỜ YÊN NGHIÊNG">
-            </a>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="../images/logo.png" alt="NGỜ YÊN NGHIÊNG">
+                </a>
+            </div>
+
+            <button class="menu-toggle" type="button">☰</button>
+
+            <div class="menu">
+                <a href="../index.html">Home</a>
+                <a href="schedule.html">Lịch trình</a>
+                <a href="confession.html" class="active">Confession</a>
+                <a href="btc.html">BTC</a>
+                <a href="groups.html">Danh sách nhóm</a>
+                <a href="gallery.html">Khoảnh khắc</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- Section Header -->
+        <section class="page-title glass text-center">
+            <h1>💌 Góc Confession</h1>
+            <p>Có điều muốn gửi gắm nhưng chưa đủ can đảm để nói trực tiếp?</p>
+            <p class="sub-text">Mọi lời nhắn đều được BTC duyệt cẩn thận trước khi xuất hiện trên trang chính!</p>
+        </section>
+
+        <!-- Layout 2 cột: Form & Live Preview -->
+        <div class="cfs-layout">
+            <!-- Form nhập liệu -->
+            <form class="confession-form glass" id="confessionForm">
+                <h2>✍️ Viết Confession</h2>
+
+                <div class="form-group">
+                    <label>Chế độ danh tính</label>
+                    <div class="identity-switch">
+                        <label class="switch-card active">
+                            <input type="radio" name="identity" value="name" checked>
+                            <span>👤 Công khai tên</span>
+                        </label>
+                        <label class="switch-card">
+                            <input type="radio" name="identity" value="anonymous">
+                            <span>🕵️ Ẩn danh</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group" id="nameGroup">
+                    <label for="name">Tên của bạn</label>
+                    <input type="text" id="name" placeholder="Nhập tên hoặc biệt danh..." required>
+                </div>
+
+                <div class="form-group">
+                    <div class="label-row">
+                        <label for="message">Nội dung gửi gắm</label>
+                        <span class="char-count"><span id="charNum">0</span>/500</span>
+                    </div>
+                    <textarea id="message" required maxlength="500" placeholder="Viết những tâm tư, lời chúc hoặc gửi gắm tới ai đó..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <span>💌 Gửi ngay cho BTC</span>
+                </button>
+            </form>
+
+            <!-- Khung xem trước (Live Preview Card) -->
+            <div class="preview-section">
+                <h3>👀 Xem trước bài đăng</h3>
+                <div class="cfs-card-preview glass">
+                    <div class="cfs-card-header">
+                        <div class="avatar" id="pvAvatar">👤</div>
+                        <div class="user-meta">
+                            <strong id="pvName">Tên của bạn</strong>
+                            <small id="pvTime">Vừa xong • #CFS-PREVIEW</small>
+                        </div>
+                        <span class="status-badge">Xem trước</span>
+                    </div>
+                    <div class="cfs-card-body">
+                        <p id="pvMessage">Nội dung bài viết sẽ hiển thị ở đây khi bạn gõ...</p>
+                    </div>
+                    <div class="cfs-card-footer">
+                        <span>❤️ 0 thích</span>
+                        <span>💬 0 bình luận</span>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <button class="menu-toggle" type="button">
-            ☰
-        </button>
-
-        <div class="menu">
-            <a href="../index.html">Home</a>
-            <a href="schedule.html">Lịch trình</a>
-            <a href="confession.html" class="active">Confession</a>
-            <a href="btc.html">BTC</a>
-            <a href="groups.html">Danh sách nhóm</a>
-            <a href="gallery.html">Khoảnh khắc</a>
-        </div>
-    </nav>
-
-    <section class="page-title glass">
-        <h1>🤍 Confession</h1>
-        <p>🤍 Có điều muốn nói nhưng chưa đủ can đảm để nói trực tiếp?</p>
-        <p>Hãy gửi một confession. BTC sẽ duyệt trước khi đăng để giữ một môi trường yêu thương và văn minh.</p>
-    </section>
-
-    <form class="confession-form" id="confessionForm">
-
-        <label>👤 Tên</label>
-
-        <div class="name-option">
-
-            <label class="radio-option">
-                <input type="radio" name="identity" value="name" checked>
-                Hiện tên
-            </label>
-
-            <label class="radio-option">
-                <input type="radio" name="identity" value="anonymous">
-                Ẩn danh
-            </label>
-
-        </div>
-
-        <input type="text" id="name" placeholder="Tên của bạn" required>
-
-        <label>✍️ Nội dung</label>
-        <textarea id="message" required maxlength="500" placeholder="Viết điều bạn muốn gửi..."></textarea>
-
-        <button type="submit">
-            🤍 Gửi confession
-        </button>
-
-    </form>
+    </main>
 
     <footer>
         <p>Designed & Developed by Diệp Đoan Trinh</p>
     </footer>
 
+    <!-- Script xử lý giao diện & logic -->
     <script>
+        // DOM Elements
+        const form = document.getElementById("confessionForm");
         const nameInput = document.getElementById("name");
+        const messageInput = document.getElementById("message");
+        const radios = document.querySelectorAll('input[name="identity"]');
+        const switchCards = document.querySelectorAll(".switch-card");
+        const charNum = document.getElementById("charNum");
 
-        const radios = document.querySelectorAll(
-            'input[name="identity"]'
-        );
+        // Preview Elements
+        const pvName = document.getElementById("pvName");
+        const pvMessage = document.getElementById("pvMessage");
+        const pvAvatar = document.getElementById("pvAvatar");
+        const nameGroup = document.getElementById("nameGroup");
 
-        radios.forEach(radio => {
-
+        // Toggle Switch & Live Preview cho chế độ Ẩn danh / Hiện tên
+        radios.forEach((radio, idx) => {
             radio.addEventListener("change", function () {
+                switchCards.forEach(card => card.classList.remove("active"));
+                switchCards[idx].classList.add("active");
 
                 if (this.value === "anonymous") {
-
                     nameInput.value = "";
                     nameInput.disabled = true;
                     nameInput.required = false;
-                    nameInput.placeholder = "Đang gửi ẩn danh";
-
+                    nameGroup.style.opacity = "0.5";
+                    pvName.textContent = "Người giấu tên 🕵️";
+                    pvAvatar.textContent = "🕵️";
                 } else {
-
                     nameInput.disabled = false;
                     nameInput.required = true;
-                    nameInput.placeholder = "Tên của bạn";
-
+                    nameGroup.style.opacity = "1";
+                    pvName.textContent = nameInput.value || "Tên của bạn";
+                    pvAvatar.textContent = "👤";
                 }
-
             });
-
         });
-    </script>
 
-    <script>
+        // Live Preview nội dung Tên
+        nameInput.addEventListener("input", function () {
+            pvName.textContent = this.value.trim() || "Tên của bạn";
+        });
 
+        // Live Preview nội dung Lời nhắn & Đếm ký tự
+        messageInput.addEventListener("input", function () {
+            const text = this.value;
+            charNum.textContent = text.length;
+            pvMessage.textContent = text.trim() || "Nội dung bài viết sẽ hiển thị ở đây khi bạn gõ...";
+        });
+
+        // Google Sheet Submit Script (Giữ nguyên URL của bạn)
         const scriptURL = "https://script.google.com/macros/s/AKfycbwlTWE9PzNF3gDlo9Ebu3YT1xNqDoIzYItdy7KyWWVxhnBwC0GnJzYqv92Ncuh1wlsVBg/exec";
 
-        const form = document.getElementById("confessionForm");
-
         form.addEventListener("submit", function (e) {
-
             e.preventDefault();
+            const submitBtn = form.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.innerText = "⏳ Đang gửi...";
 
-            const identity =
-                document.querySelector('input[name="identity"]:checked').value;
-
+            const identity = document.querySelector('input[name="identity"]:checked').value;
             const data = {
-
                 anonymous: identity === "anonymous",
-                name: document.getElementById("name").value,
-                message: document.getElementById("message").value
-
+                name: identity === "anonymous" ? "Ẩn danh" : document.getElementById("name").value,
+                message: messageInput.value
             };
 
             fetch(scriptURL, {
                 method: "POST",
                 mode: "no-cors",
-                headers: {
-                    "Content-Type": "text/plain;charset=utf-8"
-                },
+                headers: { "Content-Type": "text/plain;charset=utf-8" },
                 body: JSON.stringify(data)
             })
-                .then(() => {
-
-                    alert("🤍 Confession đã được gửi!");
-
-                    form.reset();
-
-                    document.querySelector(
-                        'input[value="name"]'
-                    ).checked = true;
-
-                    nameInput.disabled = false;
-                    nameInput.required = true;
-                    nameInput.placeholder = "Tên của bạn";
-
-                })
-                .catch(err => {
-
-                    console.log(err);
-                    alert("Có lỗi xảy ra!");
-
-                });
-
+            .then(() => {
+                alert("💖 Confession của bạn đã được gửi tới BTC thành công!");
+                form.reset();
+                
+                // Reset Preview
+                pvMessage.textContent = "Nội dung bài viết sẽ hiển thị ở đây khi bạn gõ...";
+                pvName.textContent = "Tên của bạn";
+                pvAvatar.textContent = "👤";
+                charNum.textContent = "0";
+                
+                // Reset Radio
+                document.querySelector('input[value="name"]').checked = true;
+                switchCards[0].classList.add("active");
+                switchCards[1].classList.remove("active");
+                nameInput.disabled = false;
+                nameGroup.style.opacity = "1";
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = "<span>💌 Gửi ngay cho BTC</span>";
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Có lỗi xảy ra, vui lòng thử lại!");
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = "<span>💌 Gửi ngay cho BTC</span>";
+            });
         });
 
-    </script>
-
-    <script>
-
+        // Mobile Menu Toggle
         const toggle = document.querySelector(".menu-toggle");
         const menu = document.querySelector(".menu");
 
-        // Mở / đóng menu
         toggle.addEventListener("click", () => {
-
             menu.classList.toggle("show");
-
-            toggle.textContent =
-                menu.classList.contains("show")
-                    ? "✕"
-                    : "☰";
-
+            toggle.textContent = menu.classList.contains("show") ? "✕" : "☰";
         });
 
-        // Bấm vào link thì đóng menu
         document.querySelectorAll(".menu a").forEach(link => {
-
             link.addEventListener("click", () => {
-
                 menu.classList.remove("show");
                 toggle.textContent = "☰";
-
             });
-
-        });
-
-        // Bấm ra ngoài thì đóng menu
-        document.addEventListener("click", (e) => {
-
-            if (
-                !menu.contains(e.target) &&
-                !toggle.contains(e.target)
-            ) {
-
-                menu.classList.remove("show");
-                toggle.textContent = "☰";
-
-            }
-
         });
     </script>
 </body>
