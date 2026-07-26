@@ -20,22 +20,24 @@
 </head>
 
 <body>
+    <!-- Intro Screen cho PWA / Mobile -->
     <div class="intro-screen">
         <div class="intro-content">
             <h2>👋 Xin chào</h2>
             <h2>Trại sinh!</h2>
         </div>
     </div>
-    <!-- Navigation -->
+
+    <!-- Navigation Bar -->
     <header>
         <nav>
             <div class="logo">
                 <a href="index.html">
                     <img src="images/logo.png" alt="NGỜ YÊN NGHIÊNG">
-                </a>   
+                </a>
             </div>
 
-            <button class="menu-toggle" type="button">
+            <button class="menu-toggle" type="button" aria-label="Toggle Navigation">
                 ☰
             </button>
 
@@ -46,58 +48,58 @@
                 <a href="pages/btc.html">BTC</a>
                 <a href="pages/groups.html">Danh sách nhóm</a>
                 <a href="pages/gallery.html">Khoảnh khắc</a>
-
             </div>
         </nav>
     </header>
 
-    <section class="countdown">
-
-        <h2>⏳ Đếm ngược đến ngày khởi hành</h2>
-
-        <div class="countdown-container">
-
-            <div class="time-box">
-                <span id="days">00</span>
-                <p>Ngày</p>
+    <!-- Floating Countdown Widget -->
+    <div class="sticky-countdown" id="stickyCountdown">
+        <!-- Khối 1: Hiển thị khi đang đếm ngược -->
+        <div class="countdown-live" id="countdownLive">
+            <span class="countdown-label">⏳ Đếm ngược ngày khởi hành:</span>
+            <div class="mini-timer">
+                <span id="days">00</span>d :
+                <span id="hours">00</span>h :
+                <span id="minutes">00</span>m :
+                <span id="seconds">00</span>s
             </div>
-
-            <div class="time-box">
-                <span id="hours">00</span>
-                <p>Giờ</p>
-            </div>
-
-            <div class="time-box">
-                <span id="minutes">00</span>
-                <p>Phút</p>
-            </div>
-
-            <div class="time-box">
-                <span id="seconds">00</span>
-                <p>Giây</p>
-            </div>
-
         </div>
 
-    </section>
+        <!-- Khối 2: Tự động hiện lên khi đã tới giờ Trại -->
+        <div class="welcome-message" id="welcomeMessage" style="display: none;">
+            🎉 Chào mừng bạn tới Trại <strong>NGỜ YÊN NGHIÊNG</strong> của BTN Linh Xuân!
+        </div>
+    </div>
 
-    <!-- Hero -->
+    <!-- Khối 2: Tự động hiện lên khi đã tới giờ Trại -->
+    <div class="welcome-message" id="welcomeMessage" style="display: none;">
+        🎉 Chào mừng bạn tới Trại <strong>NGỜ YÊN NGHIÊNG</strong> của BTN Linh Xuân!
+    </div>
+    </div>
+
+    <!-- Hero Section -->
     <section class="hero" id="hero">
-        <div class="hero-hint">
-            📖 Nhấn để đọc câu gốc chủ đề Trại 2026
-        </div>
+        <div class="hero-hint">📖 Nhấn để xem câu gốc & thông tin Trại</div>
+
         <div class="hero-overlay">
-            <h2>📖 Thi Thiên 62:1–2</h2>
-            <p>
-                "Linh hồn tôi nghỉ an nơi một mình Đức Chúa Trời;<br>
-                Sự cứu rỗi tôi từ Ngài mà đến.<br>
-                Một mình Ngài là hòn đá tôi, sự cứu rỗi tôi,<br>
-                Và là nơi ẩn náu cao của tôi;<br>
-                Tôi sẽ chẳng bị rúng động nhiều."
-            </p>
-            <small>Nhấn lần nữa để đóng</small>
+            <div class="bible-quote">
+                <h2>📖 Thi Thiên 62:1–2</h2>
+                <p>
+                    "Linh hồn tôi nghỉ an nơi một mình Đức Chúa Trời;<br>
+                    Sự cứu rỗi tôi từ Ngài mà đến.<br>
+                    Một mình Ngài là hòn đá tôi, sự cứu rỗi tôi,<br>
+                    Và là nơi ẩn náu cao của tôi;<br>
+                    Tôi sẽ chẳng bị rúng động nhiều."
+                </p>
+            </div>
+
+            <div class="hero-meta">
+                <p class="meta-item">📅 <strong>30.08.2026 – 02.09.2026</strong></p>
+                <p class="meta-item">📍 <strong>HTTL Buôn Ma Thuột</strong></p>
+            </div>
+
+            <small class="close-hint">Nhấn lần nữa để đóng</small>
         </div>
-    
     </section>
 
     <section class="features">
@@ -136,12 +138,6 @@
     <footer>
         <p>Designed & Developed by Diệp Đoan Trinh</p>
     </footer>
-    
-    <script>
-        setTimeout(function () {
-            document.querySelector(".intro-screen").remove();
-        }, 1500);
-    </script>
 
     <script>
 
@@ -199,50 +195,44 @@
 
         });
 
+        // Thời gian diễn ra Trại (30/08/2026 11:00 AM)
         const targetDate = new Date("August 30, 2026 11:00:00").getTime();
-        function countdown() {
+
+        function updateCountdown() {
             const now = new Date().getTime();
             const distance = targetDate - now;
-            if (distance < 0) {
 
-                document.getElementById("days").innerHTML = "00";
-                document.getElementById("hours").innerHTML = "00";
-                document.getElementById("minutes").innerHTML = "00";
-                document.getElementById("seconds").innerHTML = "00";
+            const liveBlock = document.getElementById("countdownLive");
+            const welcomeBlock = document.getElementById("welcomeMessage");
 
+            // Nếu đã tới hoặc qua giờ Trại
+            if (distance <= 0) {
+                if (liveBlock) liveBlock.style.display = "none";
+                if (welcomeBlock) welcomeBlock.style.display = "block";
                 return;
-
             }
 
+            // Tính toán thời gian
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            const hours = Math.floor(
-                (distance % (1000 * 60 * 60 * 24))
-                / (1000 * 60 * 60)
-            );
-
-            const minutes = Math.floor(
-                (distance % (1000 * 60 * 60))
-                / (1000 * 60)
-            );
-
-            const seconds = Math.floor(
-                (distance % (1000 * 60))
-                / 1000
-            );
-
-            document.getElementById("days").innerHTML = days;
-            document.getElementById("hours").innerHTML = hours;
-            document.getElementById("minutes").innerHTML = minutes;
-            document.getElementById("seconds").innerHTML = seconds;
+            // Định dạng thêm số 0 đằng trước nếu nhỏ hơn 10 (vd: 05 ngày)
+            document.getElementById("days").innerHTML = String(days).padStart(2, '0');
+            document.getElementById("hours").innerHTML = String(hours).padStart(2, '0');
+            document.getElementById("minutes").innerHTML = String(minutes).padStart(2, '0');
+            document.getElementById("seconds").innerHTML = String(seconds).padStart(2, '0');
         }
-        countdown();
-        setInterval(countdown, 1000);
+
+        // Chạy đếm ngược
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
 
         const hero = document.getElementById("hero");
         hero.addEventListener("click", () => {
-        hero.classList.toggle("show");
-});
+            hero.classList.toggle("show");
+        });
     </script>
 </body>
 
