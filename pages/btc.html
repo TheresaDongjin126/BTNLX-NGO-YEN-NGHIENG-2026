@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
@@ -9,103 +9,109 @@
 </head>
 
 <body>
-    <nav>
-        <div class="logo">
-            <a href="../index.html">
-                <img src="../images/logo.png" alt="NGỜ YÊN NGHIÊNG">
-            </a>
-        </div>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="../images/logo.png" alt="NGỜ YÊN NGHIÊNG">
+                </a>
+            </div>
 
-        <button class="menu-toggle" type="button">
-            ☰
-        </button>
+            <button class="menu-toggle" type="button">☰</button>
 
-        <div class="menu">
-            <a href="../index.html">Home</a>
-            <a href="schedule.html">Lịch trình</a>
-            <a href="confession.html">Confession</a>
-            <a href="btc.html" class="active">BTC</a>
-            <a href="groups.html">Danh sách nhóm</a>
-            <a href="gallery.html">Khoảnh khắc</a>
-        </div>
-    </nav>
+            <div class="menu">
+                <a href="../index.html">Home</a>
+                <a href="schedule.html">Lịch trình</a>
+                <a href="confession.html">Confession</a>
+                <a href="btc.html" class="active">BTC</a>
+                <a href="groups.html">Danh sách nhóm</a>
+                <a href="gallery.html">Khoảnh khắc</a>
+            </div>
+        </nav>
+    </header>
 
     <section class="page-title glass">
         <h1>👥 Ban Tổ Chức</h1>
-        <p>🤝 Những người luôn đồng hành cùng bạn</p>
+        <p>🤝 Những người luôn sẵn sàng hỗ trợ bạn trong suốt kỳ trại</p>
     </section>
 
-    <section class="members">
+    <!-- Section BTC Grid -->
+    <section class="members btc-grid">
 
-        <div class="member-card">
-            <h3>👤 Huỳnh Nhật Tín</h3>
-            <p><strong>Trưởng trại</strong></p>
+        <!-- Trưởng trại -->
+        <div class="member-card highlight-card">
+            <div class="role-badge">👑 Trưởng trại</div>
+            <div class="member-avatar">T</div>
+            <h3>Huỳnh Nhật Tín</h3>
 
             <div class="member-buttons">
                 <a class="call-btn" href="tel:0384628883" onclick="return confirm('Gọi cho Huỳnh Nhật Tín?')">
-                    📞 Điện thoại
+                    📞 Gọi ngay
                 </a>
-
                 <a class="facebook-btn" href="https://www.facebook.com/tin.huynhnhat.90" target="_blank">
                     🌐 Facebook
                 </a>
             </div>
         </div>
 
-        <div class="member-card">
-            <h3>👤 Nguyễn Ngọc Tường Vy</h3>
-            <p><strong>Phó trại</strong></p>
+        <!-- Phó trại -->
+        <div class="member-card highlight-card">
+            <div class="role-badge">⭐ Phó trại</div>
+            <div class="member-avatar">V</div>
+            <h3>Nguyễn Ngọc Tường Vy</h3>
 
             <div class="member-buttons">
                 <a class="call-btn" href="tel:0337631143">
-                    📞 Điện thoại
+                    📞 Gọi ngay
                 </a>
-
                 <a class="facebook-btn" href="https://www.facebook.com/vy.nguyen.122312" target="_blank">
                     🌐 Facebook
                 </a>
             </div>
         </div>
 
-        <div class="member-card">
-            <h3>👤 Võ Nguyễn Minh Trung</h3>
-            <p><strong>Thư ký trại</strong></p>
+        <!-- Thư ký (Đã thêm highlight-card và đổi class role-badge) -->
+        <div class="member-card highlight-card">
+            <div class="role-badge">📝 Thư ký trại</div>
+            <div class="member-avatar">T</div>
+            <h3>Võ Nguyễn Minh Trung</h3>
 
             <div class="member-buttons">
                 <a class="call-btn" href="tel:0704768756" onclick="return confirm('Gọi cho Võ Nguyễn Minh Trung?')">
-                    📞 Điện thoại
+                    📞 Gọi ngay
                 </a>
-
                 <a class="facebook-btn" href="https://www.facebook.com/vnmtrung" target="_blank">
                     🌐 Facebook
                 </a>
             </div>
         </div>
 
-        <div class="member-card">
-            <h3>👤 Dương Thị Luyến</h3>
-            <p><strong>Thủ quỹ trại</strong></p>
+        <!-- Thủ quỹ (Đã thêm highlight-card và đổi class role-badge) -->
+        <div class="member-card highlight-card">
+            <div class="role-badge">💰 Thủ quỹ trại</div>
+            <div class="member-avatar">L</div>
+            <h3>Dương Thị Luyến</h3>
 
             <div class="member-buttons">
                 <a class="call-btn" href="tel:0365719910" onclick="return confirm('Gọi cho Dương Thị Luyến?')">
-                    📞 Điện thoại
+                    📞 Gọi ngay
                 </a>
-
                 <a class="facebook-btn" href="https://www.facebook.com/duong.luyen.2004" target="_blank">
                     🌐 Facebook
                 </a>
             </div>
         </div>
 
+        <!-- BĐH (Giữ nguyên dạng thẻ phụ) -->
         <div class="member-card">
-            <h3>👤 Diệp Đoan Trinh</h3>
-            <p><strong>Ban Điều Hành</strong></p>
+            <div class="role-badge sub">💫 Ban Điều Hành</div>
+            <div class="member-avatar">T</div>
+            <h3>Diệp Đoan Trinh</h3>
 
             <div class="member-buttons">
                 <a class="call-btn" href="tel:0816173731" onclick="return confirm('Gọi cho Diệp Đoan Trinh?')">
-                    📞 Điện thoại
+                    📞 Gọi ngay
                 </a>
-
                 <a class="facebook-btn" href="https://www.facebook.com/theresadiep6" target="_blank">
                     💬 Facebook
                 </a>
@@ -119,47 +125,26 @@
     </footer>
 
     <script>
-
         const toggle = document.querySelector(".menu-toggle");
         const menu = document.querySelector(".menu");
 
-        // Mở / đóng menu
         toggle.addEventListener("click", () => {
-
             menu.classList.toggle("show");
-
-            toggle.textContent =
-                menu.classList.contains("show")
-                    ? "✕"
-                    : "☰";
-
+            toggle.textContent = menu.classList.contains("show") ? "✕" : "☰";
         });
 
-        // Bấm vào link thì đóng menu
         document.querySelectorAll(".menu a").forEach(link => {
-
             link.addEventListener("click", () => {
-
                 menu.classList.remove("show");
                 toggle.textContent = "☰";
-
             });
-
         });
 
-        // Bấm ra ngoài thì đóng menu
         document.addEventListener("click", (e) => {
-
-            if (
-                !menu.contains(e.target) &&
-                !toggle.contains(e.target)
-            ) {
-
+            if (!menu.contains(e.target) && !toggle.contains(e.target)) {
                 menu.classList.remove("show");
                 toggle.textContent = "☰";
-
             }
-
         });
     </script>
 </body>
