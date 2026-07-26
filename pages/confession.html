@@ -4,8 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confession - Ngờ Yên Nghiêng</title>
+    <title>Confession - NGỜ YÊN NGHIÊNG</title>
+
     <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="../images/icon.png">
+    <link rel="apple-touch-icon" href="../images/icon.png">
+    <link rel="manifest" href="../manifest.json">
+
+    <meta name="theme-color" content="#123b8d">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="BTN LX">
 </head>
 
 <body>
@@ -17,7 +26,7 @@
                 </a>
             </div>
 
-            <button class="menu-toggle" type="button">☰</button>
+            <button class="menu-toggle" aria-label="Toggle Navigation">☰</button>
 
             <div class="menu">
                 <a href="../index.html">Home</a>
@@ -31,27 +40,25 @@
     </header>
 
     <main class="container">
-        <!-- Section Header -->
         <section class="page-title glass text-center">
-            <h1>💌 Góc Confession</h1>
+            <span class="page-title-badge">💌 GÓC SẺ CHIA</span>
+            <h1>Góc Confession</h1>
             <p>Có điều muốn gửi gắm nhưng chưa đủ can đảm để nói trực tiếp?</p>
             <p class="sub-text">Mọi lời nhắn đều được BTC duyệt cẩn thận trước khi xuất hiện trên trang chính!</p>
         </section>
 
-        <!-- Layout 2 cột: Form & Live Preview -->
         <div class="cfs-layout">
-            <!-- Form nhập liệu -->
             <form class="confession-form glass" id="confessionForm">
                 <h2>✍️ Viết Confession</h2>
 
                 <div class="form-group">
                     <label>Chế độ danh tính</label>
-                    <div class="identity-switch">
-                        <label class="switch-card active">
+                    <div class="identity-toggle">
+                        <label class="toggle-option active" id="optPublic">
                             <input type="radio" name="identity" value="name" checked>
-                            <span>👤 Công khai tên</span>
+                            <span>👤 Công khai</span>
                         </label>
-                        <label class="switch-card">
+                        <label class="toggle-option" id="optAnon">
                             <input type="radio" name="identity" value="anonymous">
                             <span>🕵️ Ẩn danh</span>
                         </label>
@@ -63,12 +70,36 @@
                     <input type="text" id="name" placeholder="Nhập tên hoặc biệt danh..." required>
                 </div>
 
+                <div class="form-group disabled" id="anonAvatarGroup" style="display: none;">
+                    <label>Chọn biểu tượng ẩn danh</label>
+                    <div class="anon-avatar-picker">
+                        <span class="avatar-opt active" data-avatar="🕵️">🕵️</span>
+                        <span class="avatar-opt" data-avatar="🐱">🐱</span>
+                        <span class="avatar-opt" data-avatar="🦊">🦊</span>
+                        <span class="avatar-opt" data-avatar="👻">👻</span>
+                        <span class="avatar-opt" data-avatar="🥑">🥑</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Chủ đề bài viết</label>
+                    <div class="mood-selector">
+                        <span class="mood-tag active" data-mood="❤️ Thả thính">❤️ Thả thính</span>
+                        <span class="mood-tag" data-mood="🥺 Tâm sự">🥺 Tâm sự</span>
+                        <span class="mood-tag" data-mood="🎉 Lời chúc">🎉 Lời chúc</span>
+                        <span class="mood-tag" data-mood="🤫 Bí mật">🤫 Bí mật</span>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <div class="label-row">
                         <label for="message">Nội dung gửi gắm</label>
                         <span class="char-count"><span id="charNum">0</span>/500</span>
                     </div>
                     <textarea id="message" required maxlength="500" placeholder="Viết những tâm tư, lời chúc hoặc gửi gắm tới ai đó..."></textarea>
+                    <div class="char-progress-bg">
+                        <div class="char-progress-bar" id="progressBar"></div>
+                    </div>
                 </div>
 
                 <button type="submit" class="submit-btn">
@@ -76,15 +107,14 @@
                 </button>
             </form>
 
-            <!-- Khung xem trước (Live Preview Card) -->
             <div class="preview-section">
-                <h3>👀 Xem trước bài đăng</h3>
+                <h3>👀 Xem trước hiển thị</h3>
                 <div class="cfs-card-preview glass">
                     <div class="cfs-card-header">
                         <div class="avatar" id="pvAvatar">👤</div>
                         <div class="user-meta">
                             <strong id="pvName">Tên của bạn</strong>
-                            <small id="pvTime">Vừa xong • #CFS-PREVIEW</small>
+                            <div><span class="pv-mood-badge" id="pvMood">❤️ Thả thính</span></div>
                         </div>
                         <span class="status-badge">Xem trước</span>
                     </div>
@@ -104,58 +134,88 @@
         <p>Designed & Developed by Diệp Đoan Trinh</p>
     </footer>
 
-    <!-- Script xử lý giao diện & logic -->
     <script>
-        // DOM Elements
         const form = document.getElementById("confessionForm");
         const nameInput = document.getElementById("name");
         const messageInput = document.getElementById("message");
-        const radios = document.querySelectorAll('input[name="identity"]');
-        const switchCards = document.querySelectorAll(".switch-card");
+        const nameGroup = document.getElementById("nameGroup");
+        const anonAvatarGroup = document.getElementById("anonAvatarGroup");
+        const progressBar = document.getElementById("progressBar");
         const charNum = document.getElementById("charNum");
 
-        // Preview Elements
         const pvName = document.getElementById("pvName");
         const pvMessage = document.getElementById("pvMessage");
         const pvAvatar = document.getElementById("pvAvatar");
-        const nameGroup = document.getElementById("nameGroup");
+        const pvMood = document.getElementById("pvMood");
 
-        // Toggle Switch & Live Preview cho chế độ Ẩn danh / Hiện tên
-        radios.forEach((radio, idx) => {
-            radio.addEventListener("change", function () {
-                switchCards.forEach(card => card.classList.remove("active"));
-                switchCards[idx].classList.add("active");
+        const optPublic = document.getElementById("optPublic");
+        const optAnon = document.getElementById("optAnon");
+        let currentAnonAvatar = "🕵️";
 
-                if (this.value === "anonymous") {
-                    nameInput.value = "";
-                    nameInput.disabled = true;
-                    nameInput.required = false;
-                    nameGroup.style.opacity = "0.5";
-                    pvName.textContent = "Người giấu tên 🕵️";
-                    pvAvatar.textContent = "🕵️";
-                } else {
-                    nameInput.disabled = false;
-                    nameInput.required = true;
-                    nameGroup.style.opacity = "1";
-                    pvName.textContent = nameInput.value || "Tên của bạn";
-                    pvAvatar.textContent = "👤";
-                }
+        optPublic.addEventListener("click", () => switchIdentity("name"));
+        optAnon.addEventListener("click", () => switchIdentity("anonymous"));
+
+        function switchIdentity(type) {
+            if (type === "anonymous") {
+                optAnon.classList.add("active");
+                optPublic.classList.remove("active");
+                optAnon.querySelector("input").checked = true;
+
+                nameGroup.classList.add("disabled");
+                anonAvatarGroup.style.display = "block";
+                nameInput.required = false;
+
+                pvName.textContent = "Người giấu tên";
+                pvAvatar.textContent = currentAnonAvatar;
+            } else {
+                optPublic.classList.add("active");
+                optAnon.classList.remove("active");
+                optPublic.querySelector("input").checked = true;
+
+                nameGroup.classList.remove("disabled");
+                anonAvatarGroup.style.display = "none";
+                nameInput.required = true;
+
+                pvName.textContent = nameInput.value.trim() || "Tên của bạn";
+                pvAvatar.textContent = "👤";
+            }
+        }
+
+        document.querySelectorAll(".avatar-opt").forEach(opt => {
+            opt.addEventListener("click", function() {
+                document.querySelectorAll(".avatar-opt").forEach(o => o.classList.remove("active"));
+                this.classList.add("active");
+                currentAnonAvatar = this.dataset.avatar;
+                pvAvatar.textContent = currentAnonAvatar;
             });
         });
 
-        // Live Preview nội dung Tên
+        document.querySelectorAll(".mood-tag").forEach(tag => {
+            tag.addEventListener("click", function() {
+                document.querySelectorAll(".mood-tag").forEach(t => t.classList.remove("active"));
+                this.classList.add("active");
+                pvMood.textContent = this.dataset.mood;
+            });
+        });
+
         nameInput.addEventListener("input", function () {
             pvName.textContent = this.value.trim() || "Tên của bạn";
         });
 
-        // Live Preview nội dung Lời nhắn & Đếm ký tự
         messageInput.addEventListener("input", function () {
             const text = this.value;
-            charNum.textContent = text.length;
+            const length = text.length;
+            charNum.textContent = length;
             pvMessage.textContent = text.trim() || "Nội dung bài viết sẽ hiển thị ở đây khi bạn gõ...";
+
+            const percentage = (length / 500) * 100;
+            progressBar.style.width = percentage + "%";
+
+            if (percentage > 90) progressBar.style.backgroundColor = "#e53935";
+            else if (percentage > 70) progressBar.style.backgroundColor = "#fb8c00";
+            else progressBar.style.backgroundColor = "#4caf50";
         });
 
-        // Google Sheet Submit Script (Giữ nguyên URL của bạn)
         const scriptURL = "https://script.google.com/macros/s/AKfycbwlTWE9PzNF3gDlo9Ebu3YT1xNqDoIzYItdy7KyWWVxhnBwC0GnJzYqv92Ncuh1wlsVBg/exec";
 
         form.addEventListener("submit", function (e) {
@@ -165,9 +225,12 @@
             submitBtn.innerText = "⏳ Đang gửi...";
 
             const identity = document.querySelector('input[name="identity"]:checked').value;
+            const selectedMood = document.querySelector('.mood-tag.active').dataset.mood;
+
             const data = {
                 anonymous: identity === "anonymous",
-                name: identity === "anonymous" ? "Ẩn danh" : document.getElementById("name").value,
+                name: identity === "anonymous" ? `Ẩn danh (${currentAnonAvatar})` : nameInput.value,
+                mood: selectedMood,
                 message: messageInput.value
             };
 
@@ -180,19 +243,12 @@
             .then(() => {
                 alert("💖 Confession của bạn đã được gửi tới BTC thành công!");
                 form.reset();
-                
-                // Reset Preview
                 pvMessage.textContent = "Nội dung bài viết sẽ hiển thị ở đây khi bạn gõ...";
                 pvName.textContent = "Tên của bạn";
                 pvAvatar.textContent = "👤";
                 charNum.textContent = "0";
-                
-                // Reset Radio
-                document.querySelector('input[value="name"]').checked = true;
-                switchCards[0].classList.add("active");
-                switchCards[1].classList.remove("active");
-                nameInput.disabled = false;
-                nameGroup.style.opacity = "1";
+                progressBar.style.width = "0%";
+                switchIdentity("name");
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = "<span>💌 Gửi ngay cho BTC</span>";
             })
@@ -204,20 +260,17 @@
             });
         });
 
-        // Mobile Menu Toggle
         const toggle = document.querySelector(".menu-toggle");
         const menu = document.querySelector(".menu");
-
         toggle.addEventListener("click", () => {
             menu.classList.toggle("show");
             toggle.textContent = menu.classList.contains("show") ? "✕" : "☰";
         });
-
-        document.querySelectorAll(".menu a").forEach(link => {
-            link.addEventListener("click", () => {
+        document.addEventListener("click", (e) => {
+            if (!menu.contains(e.target) && !toggle.contains(e.target)) {
                 menu.classList.remove("show");
                 toggle.textContent = "☰";
-            });
+            }
         });
     </script>
 </body>
