@@ -1,14 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>NGỜ YÊN NGHIÊNG</title>
 
     <link rel="stylesheet" href="style.css">
-
     <link rel="icon" href="images/icon.png">
     <link rel="apple-touch-icon" href="images/icon.png">
     <link rel="manifest" href="manifest.json">
@@ -37,10 +35,7 @@
                 </a>
             </div>
 
-            <button class="menu-toggle" type="button" aria-label="Toggle Navigation">
-                ☰
-            </button>
-
+            <button class="menu-toggle" aria-label="Toggle Navigation">☰</button>
             <div class="menu">
                 <a href="index.html" class="active">Home</a>
                 <a href="pages/schedule.html">Lịch trình</a>
@@ -54,7 +49,6 @@
 
     <!-- Floating Countdown Widget -->
     <div class="sticky-countdown" id="stickyCountdown">
-        <!-- Khối 1: Hiển thị khi đang đếm ngược -->
         <div class="countdown-live" id="countdownLive">
             <span class="countdown-label">⏳ Đếm ngược ngày khởi hành:</span>
             <div class="mini-timer">
@@ -65,16 +59,9 @@
             </div>
         </div>
 
-        <!-- Khối 2: Tự động hiện lên khi đã tới giờ Trại -->
         <div class="welcome-message" id="welcomeMessage" style="display: none;">
             🎉 Chào mừng bạn tới Trại <strong>NGỜ YÊN NGHIÊNG</strong> của BTN Linh Xuân!
         </div>
-    </div>
-
-    <!-- Khối 2: Tự động hiện lên khi đã tới giờ Trại -->
-    <div class="welcome-message" id="welcomeMessage" style="display: none;">
-        🎉 Chào mừng bạn tới Trại <strong>NGỜ YÊN NGHIÊNG</strong> của BTN Linh Xuân!
-    </div>
     </div>
 
     <!-- Hero Section -->
@@ -102,11 +89,11 @@
         </div>
     </section>
 
+    <!-- Features Section -->
     <section class="features">
         <h2>🍃 Bạn có thể</h2>
-        <p class="section-description">
-            Khám phá các tiện ích dành riêng cho Trại sinh.
-        </p>
+        <p class="section-description">Khám phá các tiện ích dành riêng cho Trại sinh.</p>
+        
         <div class="card-container">
             <a href="pages/schedule.html" class="card">
                 <h2>📅</h2>
@@ -117,8 +104,7 @@
             <a href="pages/confession.html" class="card">
                 <h2>🤍</h2>
                 <h3>Confession</h3>
-                <p>Gửi lời nhắn ẩn danh để chia sẻ cảm nghĩ, động viên hoặc bày tỏ những điều bạn muốn nói với mọi
-                    người.</p>
+                <p>Gửi lời nhắn ẩn danh để chia sẻ cảm nghĩ, động viên hoặc bày tỏ những điều bạn muốn nói.</p>
             </a>
 
             <a href="pages/groups.html" class="card">
@@ -130,7 +116,7 @@
             <a href="pages/btc.html" class="card">
                 <h2>📞</h2>
                 <h3>Liên hệ BTC</h3>
-                <p>Xem danh sách Ban Tổ chức cùng số điện thoại để liên hệ khi cần hỗ trợ trong suốt kỳ trại.</p>
+                <p>Xem danh sách Ban Tổ chức cùng số điện thoại để liên hệ khi cần hỗ trợ.</p>
             </a>
         </div>
     </section>
@@ -140,62 +126,37 @@
     </footer>
 
     <script>
-
+        // Toggle Mobile Menu
         const toggle = document.querySelector(".menu-toggle");
         const menu = document.querySelector(".menu");
 
-        // Mở / đóng menu
         toggle.addEventListener("click", () => {
-
             menu.classList.toggle("show");
-
-            toggle.textContent =
-                menu.classList.contains("show")
-                    ? "✕"
-                    : "☰";
-
+            toggle.textContent = menu.classList.contains("show") ? "✕" : "☰";
         });
 
-        // Bấm vào link thì đóng menu
         document.querySelectorAll(".menu a").forEach(link => {
-
             link.addEventListener("click", () => {
-
                 menu.classList.remove("show");
                 toggle.textContent = "☰";
-
             });
-
         });
 
-        // Bấm ra ngoài thì đóng menu
         document.addEventListener("click", (e) => {
-
-            if (
-                !menu.contains(e.target) &&
-                !toggle.contains(e.target)
-            ) {
-
+            if (!menu.contains(e.target) && !toggle.contains(e.target)) {
                 menu.classList.remove("show");
                 toggle.textContent = "☰";
-
             }
-
         });
 
-        // Resize về desktop thì reset menu
         window.addEventListener("resize", () => {
-
             if (window.innerWidth > 1000) {
-
                 menu.classList.remove("show");
                 toggle.textContent = "☰";
-
             }
-
         });
 
-        // Thời gian diễn ra Trại (30/08/2026 11:00 AM)
+        // Countdown Logic
         const targetDate = new Date("August 30, 2026 11:00:00").getTime();
 
         function updateCountdown() {
@@ -205,30 +166,27 @@
             const liveBlock = document.getElementById("countdownLive");
             const welcomeBlock = document.getElementById("welcomeMessage");
 
-            // Nếu đã tới hoặc qua giờ Trại
             if (distance <= 0) {
                 if (liveBlock) liveBlock.style.display = "none";
                 if (welcomeBlock) welcomeBlock.style.display = "block";
                 return;
             }
 
-            // Tính toán thời gian
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            // Định dạng thêm số 0 đằng trước nếu nhỏ hơn 10 (vd: 05 ngày)
-            document.getElementById("days").innerHTML = String(days).padStart(2, '0');
-            document.getElementById("hours").innerHTML = String(hours).padStart(2, '0');
-            document.getElementById("minutes").innerHTML = String(minutes).padStart(2, '0');
-            document.getElementById("seconds").innerHTML = String(seconds).padStart(2, '0');
+            document.getElementById("days").textContent = String(days).padStart(2, '0');
+            document.getElementById("hours").textContent = String(hours).padStart(2, '0');
+            document.getElementById("minutes").textContent = String(minutes).padStart(2, '0');
+            document.getElementById("seconds").textContent = String(seconds).padStart(2, '0');
         }
 
-        // Chạy đếm ngược
         updateCountdown();
         setInterval(updateCountdown, 1000);
 
+        // Hero Toggle
         const hero = document.getElementById("hero");
         hero.addEventListener("click", () => {
             hero.classList.toggle("show");
