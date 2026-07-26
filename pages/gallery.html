@@ -12,7 +12,9 @@
 
     <nav>
         <div class="logo">
-            <a href="../index.html">🏕️ BTN Linh Xuân</a>
+            <a href="../index.html">
+                <img src="../images/logo.png" alt="NGỜ YÊN NGHIÊNG">
+            </a>
         </div>
 
         <button class="menu-toggle" type="button">
@@ -29,21 +31,31 @@
         </div>
     </nav>
 
-    <section class="page-title">
+    <section class="page-title glass">
 
         <h1>📸 Khoảnh khắc Trại</h1>
-
-        <p>
-            Những hình ảnh đẹp được cập nhật trong suốt kỳ trại.
+    
+        <p class="gallery-subtitle">
+            Mỗi tấm ảnh là một kỷ niệm. Mỗi nụ cười là một món quà Chúa ban.
         </p>
-
-        <a href="https://forms.gle/Zti5JjRxk8KxdCaSA" target="_blank" class="hero-button">
-
-            📤 Đăng khoảnh khắc
-
-        </a>
-
+    
+        <div class="gallery-info">
+    
+            <div id="postCount" class="gallery-count">
+                📸 Đang tải...
+            </div>
+    
+            <a href="https://forms.gle/Zti5JjRxk8KxdCaSA"
+               target="_blank"
+               class="hero-button">
+                📤 Đăng khoảnh khắc
+            </a>
+    
+        </div>
+    
     </section>
+
+    <p id="postCount"></p>
 
     <section class="feed">
 
@@ -53,8 +65,11 @@
 
     </section>
 
-    <script>
+    <footer>
+        <p>Designed & Developed by Diệp Đoan Trinh</p>
+    </footer>
 
+    <script>
         const toggle = document.querySelector(".menu-toggle");
         const menu = document.querySelector(".menu");
 
@@ -110,7 +125,8 @@
                 .then(data => {
 
                     const posts = document.getElementById("posts");
-
+                    document.getElementById("postCount").textContent =
+                    `📸 ${data.length} khoảnh khắc đã được chia sẻ`;        
                     posts.innerHTML = "";
 
                     data.forEach(post => {
@@ -125,6 +141,7 @@
                             <img
                                 src="${post.images[0]}"
                                 class="post-image">
+                             <img loading="lazy"...>   
                         `;
 
                         }
@@ -228,8 +245,6 @@
         }
 
         loadPosts();
-
-        setInterval(loadPosts, 15000);
 
     </script>
 </body>
