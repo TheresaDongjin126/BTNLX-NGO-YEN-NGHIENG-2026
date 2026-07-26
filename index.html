@@ -51,18 +51,17 @@
     <div class="sticky-countdown" id="stickyCountdown">
         <div class="countdown-live" id="countdownLive">
             <span class="countdown-label">⏳ Đếm ngược ngày khởi hành:</span>
+
             <div class="mini-timer">
-                <span id="days">00</span> ngày :
-                <span id="hours">00</span> giờ :
-                <span id="minutes">00</span> phút :
-                <span id="seconds">00</span> giây
+                <span class="timer-unit"><strong id="days">00</strong> ngày</span>
+                <span class="timer-sep">:</span>
+                <span class="timer-unit"><strong id="hours">00</strong> giờ</span>
+                <span class="timer-sep">:</span>
+                <span class="timer-unit"><strong id="minutes">00</strong> phút</span>
+                <span class="timer-sep">:</span>
+                <span class="timer-unit"><strong id="seconds">00</strong> giây</span>
             </div>
         </div>
-
-        <div class="welcome-message" id="welcomeMessage" style="display: none;">
-            🎉 Chào mừng bạn tới Trại <strong>NGỜ YÊN NGHIÊNG</strong> của BTN Linh Xuân!
-        </div>
-    </div>
 
         <div class="welcome-message" id="welcomeMessage" style="display: none;">
             🎉 Chào mừng bạn tới Trại <strong>NGỜ YÊN NGHIÊNG</strong> của BTN Linh Xuân!
@@ -76,52 +75,101 @@
         <div class="hero-overlay">
             <div class="bible-quote">
                 <h2>📖 Thi Thiên 62:1–2</h2>
-                <p>
-                    "Linh hồn tôi nghỉ an nơi một mình Đức Chúa Trời;<br>
-                    Sự cứu rỗi tôi từ Ngài mà đến.<br>
-                    Một mình Ngài là hòn đá tôi, sự cứu rỗi tôi,<br>
-                    Và là nơi ẩn náu cao của tôi;<br>
-                    Tôi sẽ chẳng bị rúng động nhiều."
-                </p>
+                <div class="quote-body">
+                    <p>"Linh hồn tôi nghỉ an nơi một mình Đức Chúa Trời;
+                    Sự cứu rỗi tôi từ Ngài mà đến.
+                    Một mình Ngài là hòn đá tôi, sự cứu rỗi tôi,
+                    Và là nơi ẩn náu cao của tôi;
+                    Tôi sẽ chẳng bị rúng động nhiều."</p>
+                </div>
             </div>
-
+        
             <div class="hero-meta">
                 <p class="meta-item">📅 <strong>30.08.2026 – 02.09.2026</strong></p>
                 <p class="meta-item">📍 <strong>HTTL Buôn Ma Thuột</strong></p>
             </div>
-
+        
             <small class="close-hint">Nhấn lần nữa để đóng</small>
         </div>
     </section>
 
     <!-- Features Section -->
     <section class="features">
-        <h2>🍃 Bạn có thể</h2>
-        <p class="section-description">Khám phá các tiện ích dành riêng cho Trại sinh.</p>
-        
+        <div class="section-header">
+            <span class="section-badge">✨ TIỆN ÍCH TRẠI SINH</span>
+            <h2>Khám Phá Hành Trình 🍃</h2>
+            <p class="section-description">Mọi thông tin quan trọng bạn cần cho kỳ trại đều ở đây.</p>
+        </div>
+
         <div class="card-container">
-            <a href="pages/schedule.html" class="card">
-                <h2>📅</h2>
-                <h3>Lịch trình</h3>
-                <p>Xem toàn bộ lịch trình, thời gian sinh hoạt và các hoạt động trong suốt kỳ trại.</p>
+            <!-- Card 1: Lịch trình -->
+            <a href="pages/schedule.html" class="card card-schedule">
+                <div class="card-top">
+                    <div class="icon-wrapper">📅</div>
+                    <span class="card-tag tag-green">Lịch hoạt động</span>
+                </div>
+                <h3>Lịch Trình Trại</h3>
+                <p>Nắm bắt toàn bộ thời gian sinh hoạt, giờ nhóm lại và các trò chơi lớn.</p>
+                <div class="card-footer">
+                    <span>Xem mốc thời gian</span>
+                    <span class="arrow">→</span>
+                </div>
             </a>
 
-            <a href="pages/confession.html" class="card">
-                <h2>🤍</h2>
-                <h3>Confession</h3>
-                <p>Gửi lời nhắn ẩn danh để chia sẻ cảm nghĩ, động viên hoặc bày tỏ những điều bạn muốn nói.</p>
+            <!-- Card 2: Confession -->
+            <a href="pages/confession.html" class="card card-cfs">
+                <div class="card-top">
+                    <div class="icon-wrapper">💌</div>
+                    <span class="card-tag tag-pink">Ẩn danh 100%</span>
+                </div>
+                <h3>Góc Confession</h3>
+                <p>Gửi những lời chúc, cảm nhận hoặc sẻ chia tâm tư gửi đến bạn bè & BTC.</p>
+                <div class="card-footer">
+                    <span>Gửi tâm sự ngay</span>
+                    <span class="arrow">→</span>
+                </div>
             </a>
 
-            <a href="pages/groups.html" class="card">
-                <h2>👥</h2>
-                <h3>Danh sách nhóm</h3>
-                <p>Xem thông tin các nhóm trại, trưởng nhóm và danh sách thành viên của từng nhóm.</p>
+            <!-- Card 3: Groups -->
+            <a href="pages/groups.html" class="card card-groups">
+                <div class="card-top">
+                    <div class="icon-wrapper">⛺</div>
+                    <span class="card-tag tag-yellow">Đồng đội</span>
+                </div>
+                <h3>Danh Sách Nhóm</h3>
+                <p>Tra cứu thông tin nhóm trại, trưởng nhóm và các thành viên.</p>
+                <div class="card-footer">
+                    <span>Tìm nhóm của bạn</span>
+                    <span class="arrow">→</span>
+                </div>
             </a>
 
-            <a href="pages/btc.html" class="card">
-                <h2>📞</h2>
-                <h3>Liên hệ BTC</h3>
-                <p>Xem danh sách Ban Tổ chức cùng số điện thoại để liên hệ khi cần hỗ trợ.</p>
+            <!-- Card 4: Khoảnh khắc (Mới thêm) -->
+            <a href="pages/gallery.html" class="card card-gallery">
+                <div class="card-top">
+                    <div class="icon-wrapper">📸</div>
+                    <span class="card-tag tag-purple">Kỷ niệm</span>
+                </div>
+                <h3>Khoảnh Khắc Trại</h3>
+                <p>Lưu giữ những hình ảnh, video và kỷ niệm đáng nhớ trong suốt kỳ trại.</p>
+                <div class="card-footer">
+                    <span>Xem bộ sưu tập</span>
+                    <span class="arrow">→</span>
+                </div>
+            </a>
+
+            <!-- Card 5: BTC -->
+            <a href="pages/btc.html" class="card card-btc">
+                <div class="card-top">
+                    <div class="icon-wrapper">📞</div>
+                    <span class="card-tag tag-orange">Hỗ trợ 24/7</span>
+                </div>
+                <h3>Liên Hệ BTC</h3>
+                <p>Đội ngũ Ban Tổ Chức luôn sẵn sàng trợ giúp bạn trong suốt kỳ trại.</p>
+                <div class="card-footer">
+                    <span>Xem hotline BTC</span>
+                    <span class="arrow">→</span>
+                </div>
             </a>
         </div>
     </section>
