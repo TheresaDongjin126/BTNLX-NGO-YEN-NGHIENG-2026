@@ -4,8 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danh sách nhóm trại - Ngờ Yên Nghiêng</title>
+    <title>Danh Sách Nhóm - NGỜ YÊN NGHIÊNG</title>
+
     <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="../images/icon.png">
+    <link rel="apple-touch-icon" href="../images/icon.png">
+    <link rel="manifest" href="../manifest.json">
+
+    <meta name="theme-color" content="#123b8d">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="BTN LX">
 </head>
 
 <body>
@@ -17,9 +26,7 @@
                 </a>
             </div>
 
-            <button class="menu-toggle" type="button" aria-label="Toggle navigation">
-                ☰
-            </button>
+            <button class="menu-toggle" aria-label="Toggle Navigation">☰</button>
 
             <div class="menu">
                 <a href="../index.html">Home</a>
@@ -33,78 +40,77 @@
     </header>
 
     <main class="container">
-        <!-- Header trang -->
-        <section class="page-title glass">
-            <h1>🏕️ Danh sách nhóm Trại</h1>
-            <p>Tìm nhóm của bạn và bắt đầu hành trình đồng hành cùng nhau nhé!</p>
-            
-            <!-- Ô tìm kiếm thông minh -->
-            <div class="search-box">
-                <span class="search-icon">🔍</span>
-                <input type="text" id="searchInput" placeholder="Nhập tên thành viên hoặc tên nhóm để tìm...">
+        <section class="page-title glass text-center">
+            <span class="page-title-badge">⛺ CAMPING HUB</span>
+            <h1>Danh Sách Nhóm Trại 🏕️</h1>
+            <p>Tra cứu thông tin nhóm trại, trưởng nhóm và các đồng đội của bạn.</p>
+
+            <div class="quick-stats" style="margin-top: 15px;">
+                <div class="stat-item">
+                    <span class="stat-num">8</span>
+                    <span class="stat-label">Nhóm trại</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-num">90</span>
+                    <span class="stat-label">Trại sinh</span>
+                </div>
+            </div>
+
+            <div class="search-wrapper" style="margin-top: 15px;">
+                <div class="search-box-v2">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="searchInput" placeholder="Tìm tên thành viên hoặc tên nhóm...">
+                </div>
             </div>
         </section>
 
-        <!-- Danh sách các nhóm -->
         <section class="groups-grid">
-            
-            <!-- Nhóm 1 -->
-            <div class="group-card glass">
+            <div class="group-card glass" data-group="nhom-1">
                 <div class="card-header">
-                    <div class="group-badge badge-green">
-                        <span class="dot"></span> Nhóm 01
-                    </div>
-                    <span class="member-count">👥 12/12</span>
+                    <span class="group-badge badge-green"><span class="dot"></span> Nhóm 1</span>
+                    <span class="member-count">👥 10 Thành viên</span>
                 </div>
-
                 <div class="leader-box">
-                    <div class="crown">👑</div>
-                    <div class="leader-info">
-                        <span class="role">Trưởng nhóm</span>
-                        <strong class="name">Nguyễn Thị Tường Vy</strong>
-                    </div>
-                </div>
-
-                <div class="members-section">
-                    <h4>Thành viên nhóm</h4>
-                    <div class="members-chips">
-                        <span class="chip">🙋 Nguyễn Văn A</span>
-                        <span class="chip">🙋 Trần Văn B</span>
-                        <span class="chip">🙋 Lê Văn C</span>
-                        <span class="chip">🙋 Phạm Hoàng D</span>
-                        <span class="chip">🙋 Hoàng Thị E</span>
-                        <span class="chip">🙋 Vu Văn F</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Nhóm 2 (Mẫu nhóm khác để test grid) -->
-            <div class="group-card glass">
-                <div class="card-header">
-                    <div class="group-badge badge-orange">
-                        <span class="dot"></span> Nhóm 02
-                    </div>
-                    <span class="member-count">👥 10/12</span>
-                </div>
-
-                <div class="leader-box">
-                    <div class="crown">👑</div>
+                    <span class="crown">👑</span>
                     <div class="leader-info">
                         <span class="role">Trưởng nhóm</span>
                         <strong class="name">Nguyễn Đào Xuân Bách</strong>
                     </div>
                 </div>
-
                 <div class="members-section">
-                    <h4>Thành viên nhóm</h4>
+                    <h4>Thành viên</h4>
                     <div class="members-chips">
-                        <span class="chip">🙋 Đỗ Anh G</span>
-                        <span class="chip">🙋 Nguyễn Mai H</span>
-                        <span class="chip">🙋 Lý Văn K</span>
+                        <span class="chip">Trần Văn B</span>
+                        <span class="chip">Lê Thị C</span>
+                        <span class="chip">Phạm Văn D</span>
+                        <span class="chip">Hoàng Thị E</span>
                     </div>
                 </div>
             </div>
 
+            <div class="group-card glass" data-group="nhom-2">
+                <div class="card-header">
+                    <span class="group-badge badge-orange"><span class="dot"></span> Nhóm 2</span>
+                    <span class="member-count">👥 10 Thành viên</span>
+                </div>
+                <div class="leader-box">
+                    <span class="crown">👑</span>
+                    <div class="leader-info">
+                        <span class="role">Trưởng nhóm</span>
+                        <strong class="name">Tô Đoàn Bảo Ngọc</strong>
+                    </div>
+                </div>
+                <div class="members-section">
+                    <h4>Thành viên</h4>
+                    <div class="members-chips">
+                        <span class="chip">Vũ Thị G</span>
+                        <span class="chip">Bùi Văn H</span>
+                        <span class="chip">Đỗ Thị I</span>
+                        <span class="chip">Nông Văn K</span>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 
@@ -113,20 +119,12 @@
     </footer>
 
     <script>
-        // JS Toggle Menu
         const toggle = document.querySelector(".menu-toggle");
         const menu = document.querySelector(".menu");
 
         toggle.addEventListener("click", () => {
             menu.classList.toggle("show");
             toggle.textContent = menu.classList.contains("show") ? "✕" : "☰";
-        });
-
-        document.querySelectorAll(".menu a").forEach(link => {
-            link.addEventListener("click", () => {
-                menu.classList.remove("show");
-                toggle.textContent = "☰";
-            });
         });
 
         document.addEventListener("click", (e) => {
@@ -136,18 +134,19 @@
             }
         });
 
-        // Tìm kiếm nhóm / thành viên thời gian thực
-        const searchInput = document.getElementById('searchInput');
-        searchInput.addEventListener('keyup', function() {
+        // Search Filter Logic
+        const searchInput = document.getElementById("searchInput");
+        const cards = document.querySelectorAll(".group-card");
+
+        searchInput.addEventListener("input", function() {
             const query = this.value.toLowerCase().trim();
-            const cards = document.querySelectorAll('.group-card');
 
             cards.forEach(card => {
-                const cardText = card.textContent.toLowerCase();
-                if (cardText.includes(query)) {
-                    card.style.display = 'block';
+                const text = card.textContent.toLowerCase();
+                if (text.includes(query)) {
+                    card.style.display = "flex";
                 } else {
-                    card.style.display = 'none';
+                    card.style.display = "none";
                 }
             });
         });
