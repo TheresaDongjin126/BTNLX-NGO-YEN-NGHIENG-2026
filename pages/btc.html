@@ -4,8 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BTC trại 2026</title>
+    <title>Ban Tổ Chức - NGỜ YÊN NGHIÊNG</title>
+
     <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="../images/icon.png">
+    <link rel="apple-touch-icon" href="../images/icon.png">
+    <link rel="manifest" href="../manifest.json">
+
+    <meta name="theme-color" content="#123b8d">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="BTN LX">
 </head>
 
 <body>
@@ -17,7 +26,7 @@
                 </a>
             </div>
 
-            <button class="menu-toggle" type="button">☰</button>
+            <button class="menu-toggle" aria-label="Toggle Navigation">☰</button>
 
             <div class="menu">
                 <a href="../index.html">Home</a>
@@ -30,95 +39,65 @@
         </nav>
     </header>
 
-    <section class="page-title glass">
-        <h1>👥 Ban Tổ Chức</h1>
-        <p>🤝 Những người luôn sẵn sàng hỗ trợ bạn trong suốt kỳ trại</p>
-    </section>
+    <main class="container">
+        <section class="page-title glass text-center">
+            <span class="page-title-badge">👥 ĐỘI NGŨ BTC</span>
+            <h1>Ban Tổ Chức</h1>
+            <p>🤝 Những người luôn sẵn sàng hỗ trợ bạn trong suốt kỳ trại</p>
+        </section>
 
-    <!-- Section BTC Grid -->
-    <section class="members btc-grid">
-
-        <!-- Trưởng trại -->
-        <div class="member-card highlight-card">
-            <div class="role-badge">👑 Trưởng trại</div>
-            <div class="member-avatar">T</div>
-            <h3>Huỳnh Nhật Tín</h3>
-
-            <div class="member-buttons">
-                <a class="call-btn" href="tel:0384628883" onclick="return confirm('Gọi cho Huỳnh Nhật Tín?')">
-                    📞 Gọi ngay
-                </a>
-                <a class="facebook-btn" href="https://www.facebook.com/tin.huynhnhat.90" target="_blank">
-                    🌐 Facebook
-                </a>
+        <section class="members btc-grid">
+            <div class="member-card highlight-card">
+                <div class="role-badge">👑 Trưởng trại</div>
+                <div class="member-avatar">T</div>
+                <h3>Huỳnh Nhật Tín</h3>
+                <div class="member-buttons">
+                    <a class="call-btn" href="tel:0384628883" onclick="return confirm('Gọi cho Huỳnh Nhật Tín?')">📞 Gọi ngay</a>
+                    <a class="facebook-btn" href="https://www.facebook.com/tin.huynhnhat.90" target="_blank" rel="noopener">🌐 Facebook</a>
+                </div>
             </div>
-        </div>
 
-        <!-- Phó trại -->
-        <div class="member-card highlight-card">
-            <div class="role-badge">⭐ Phó trại</div>
-            <div class="member-avatar">V</div>
-            <h3>Nguyễn Ngọc Tường Vy</h3>
-
-            <div class="member-buttons">
-                <a class="call-btn" href="tel:0337631143">
-                    📞 Gọi ngay
-                </a>
-                <a class="facebook-btn" href="https://www.facebook.com/vy.nguyen.122312" target="_blank">
-                    🌐 Facebook
-                </a>
+            <div class="member-card highlight-card">
+                <div class="role-badge">⭐ Phó trại</div>
+                <div class="member-avatar">V</div>
+                <h3>Nguyễn Ngọc Tường Vy</h3>
+                <div class="member-buttons">
+                    <a class="call-btn" href="tel:0337631143" onclick="return confirm('Gọi cho Nguyễn Ngọc Tường Vy?')">📞 Gọi ngay</a>
+                    <a class="facebook-btn" href="https://www.facebook.com/vy.nguyen.122312" target="_blank" rel="noopener">🌐 Facebook</a>
+                </div>
             </div>
-        </div>
 
-        <!-- Thư ký (Đã thêm highlight-card và đổi class role-badge) -->
-        <div class="member-card highlight-card">
-            <div class="role-badge">📝 Thư ký trại</div>
-            <div class="member-avatar">T</div>
-            <h3>Võ Nguyễn Minh Trung</h3>
-
-            <div class="member-buttons">
-                <a class="call-btn" href="tel:0704768756" onclick="return confirm('Gọi cho Võ Nguyễn Minh Trung?')">
-                    📞 Gọi ngay
-                </a>
-                <a class="facebook-btn" href="https://www.facebook.com/vnmtrung" target="_blank">
-                    🌐 Facebook
-                </a>
+            <div class="member-card highlight-card">
+                <div class="role-badge">📝 Thư ký trại</div>
+                <div class="member-avatar">T</div>
+                <h3>Võ Nguyễn Minh Trung</h3>
+                <div class="member-buttons">
+                    <a class="call-btn" href="tel:0704768756" onclick="return confirm('Gọi cho Võ Nguyễn Minh Trung?')">📞 Gọi ngay</a>
+                    <a class="facebook-btn" href="https://www.facebook.com/vnmtrung" target="_blank" rel="noopener">🌐 Facebook</a>
+                </div>
             </div>
-        </div>
 
-        <!-- Thủ quỹ (Đã thêm highlight-card và đổi class role-badge) -->
-        <div class="member-card highlight-card">
-            <div class="role-badge">💰 Thủ quỹ trại</div>
-            <div class="member-avatar">L</div>
-            <h3>Dương Thị Luyến</h3>
-
-            <div class="member-buttons">
-                <a class="call-btn" href="tel:0365719910" onclick="return confirm('Gọi cho Dương Thị Luyến?')">
-                    📞 Gọi ngay
-                </a>
-                <a class="facebook-btn" href="https://www.facebook.com/duong.luyen.2004" target="_blank">
-                    🌐 Facebook
-                </a>
+            <div class="member-card highlight-card">
+                <div class="role-badge">💰 Thủ quỹ trại</div>
+                <div class="member-avatar">L</div>
+                <h3>Dương Thị Luyến</h3>
+                <div class="member-buttons">
+                    <a class="call-btn" href="tel:0365719910" onclick="return confirm('Gọi cho Dương Thị Luyến?')">📞 Gọi ngay</a>
+                    <a class="facebook-btn" href="https://www.facebook.com/duong.luyen.2004" target="_blank" rel="noopener">🌐 Facebook</a>
+                </div>
             </div>
-        </div>
 
-        <!-- BĐH (Giữ nguyên dạng thẻ phụ) -->
-        <div class="member-card">
-            <div class="role-badge sub">💫 Ban Điều Hành</div>
-            <div class="member-avatar">T</div>
-            <h3>Diệp Đoan Trinh</h3>
-
-            <div class="member-buttons">
-                <a class="call-btn" href="tel:0816173731" onclick="return confirm('Gọi cho Diệp Đoan Trinh?')">
-                    📞 Gọi ngay
-                </a>
-                <a class="facebook-btn" href="https://www.facebook.com/theresadiep6" target="_blank">
-                    💬 Facebook
-                </a>
+            <div class="member-card">
+                <div class="role-badge sub">💫 Ban Điều Hành</div>
+                <div class="member-avatar">T</div>
+                <h3>Diệp Đoan Trinh</h3>
+                <div class="member-buttons">
+                    <a class="call-btn" href="tel:0816173731" onclick="return confirm('Gọi cho Diệp Đoan Trinh?')">📞 Gọi ngay</a>
+                    <a class="facebook-btn" href="https://www.facebook.com/theresadiep6" target="_blank" rel="noopener">🌐 Facebook</a>
+                </div>
             </div>
-        </div>
-
-    </section>
+        </section>
+    </main>
 
     <footer>
         <p>Designed & Developed by Diệp Đoan Trinh</p>
@@ -127,19 +106,10 @@
     <script>
         const toggle = document.querySelector(".menu-toggle");
         const menu = document.querySelector(".menu");
-
         toggle.addEventListener("click", () => {
             menu.classList.toggle("show");
             toggle.textContent = menu.classList.contains("show") ? "✕" : "☰";
         });
-
-        document.querySelectorAll(".menu a").forEach(link => {
-            link.addEventListener("click", () => {
-                menu.classList.remove("show");
-                toggle.textContent = "☰";
-            });
-        });
-
         document.addEventListener("click", (e) => {
             if (!menu.contains(e.target) && !toggle.contains(e.target)) {
                 menu.classList.remove("show");
