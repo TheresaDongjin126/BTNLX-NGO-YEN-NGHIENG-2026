@@ -1,251 +1,247 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Khoảnh khắc Trại</title>
+    <title>Khoảnh khắc Trại - Ngờ Yên Nghiêng</title>
     <link rel="stylesheet" href="../style.css">
 </head>
 
 <body>
-
-    <nav>
-        <div class="logo">
-            <a href="../index.html">
-                <img src="../images/logo.png" alt="NGỜ YÊN NGHIÊNG">
-            </a>
-        </div>
-
-        <button class="menu-toggle" type="button">
-            ☰
-        </button>
-
-        <div class="menu">
-            <a href="../index.html">Home</a>
-            <a href="schedule.html">Lịch trình</a>
-            <a href="confession.html">Confession</a>
-            <a href="btc.html">BTC</a>
-            <a href="groups.html">Danh sách nhóm</a>
-            <a href="gallery.html" class="active">Khoảnh khắc</a>
-        </div>
-    </nav>
-
-    <section class="page-title glass">
-
-        <h1>📸 Khoảnh khắc Trại</h1>
-    
-        <p class="gallery-subtitle">
-            Mỗi tấm ảnh là một kỷ niệm. Mỗi nụ cười là một món quà Chúa ban.
-        </p>
-    
-        <div class="gallery-info">
-    
-            <div id="postCount" class="gallery-count">
-                📸 Đang tải...
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="../images/logo.png" alt="NGỜ YÊN NGHIÊNG">
+                </a>
             </div>
-    
-            <a href="https://forms.gle/Zti5JjRxk8KxdCaSA"
-               target="_blank"
-               class="hero-button">
-                📤 Đăng khoảnh khắc
-            </a>
-    
-        </div>
-    
-    </section>
 
-    <p id="postCount"></p>
+            <button class="menu-toggle" type="button" aria-label="Toggle navigation">
+                ☰
+            </button>
 
-    <section class="feed">
+            <div class="menu">
+                <a href="../index.html">Home</a>
+                <a href="schedule.html">Lịch trình</a>
+                <a href="confession.html">Confession</a>
+                <a href="btc.html">BTC</a>
+                <a href="groups.html">Danh sách nhóm</a>
+                <a href="gallery.html" class="active">Khoảnh khắc</a>
+            </div>
+        </nav>
+    </header>
 
-        <div id="posts">
-            <p id="loading">📸 Đang tải khoảnh khắc...</p>
-        </div>
+    <main class="container">
+        <!-- Hero Title & CTA Upload -->
+        <section class="gallery-hero glass">
+            <div class="hero-text">
+                <h1>📸 Khoảnh khắc Kỷ niệm</h1>
+                <p class="gallery-subtitle">
+                    Mỗi tấm ảnh là một kỷ niệm đáng giá. Cùng nhau lưu giữ những nụ cười tuyệt vời nhất nhé!
+                </p>
+                <div id="postCount" class="gallery-count">
+                    📸 Đang tải dữ liệu...
+                </div>
+            </div>
 
-    </section>
+            <!-- Banner Kêu gọi upload ảnh -->
+            <div class="upload-cta-card">
+                <div class="cta-icon">📤</div>
+                <div class="cta-content">
+                    <h3>Bạn có ảnh đẹp?</h3>
+                    <p>Chia sẻ ngay góc nhìn của bạn với toàn bộ hội trại!</p>
+                </div>
+                <a href="https://forms.gle/Zti5JjRxk8KxdCaSA" target="_blank" class="upload-btn">
+                    Đăng ảnh ngay
+                </a>
+            </div>
+        </section>
+
+        <!-- Feed bài đăng -->
+        <section class="gallery-feed">
+            <div id="posts" class="posts-grid">
+                <div id="loading" class="loading-state glass">
+                    <div class="spinner"></div>
+                    <p>📸 Đang tải những khoảnh khắc tuyệt vời...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal Phóng to ảnh (Lightbox) -->
+    <div id="imageModal" class="image-modal">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="modalImg">
+    </div>
 
     <footer>
         <p>Designed & Developed by Diệp Đoan Trinh</p>
     </footer>
 
     <script>
+        // ================= MENU TOGGLE =================
         const toggle = document.querySelector(".menu-toggle");
         const menu = document.querySelector(".menu");
 
-        // ================= MENU =================
-
         toggle.addEventListener("click", () => {
-
             menu.classList.toggle("show");
-
-            toggle.textContent =
-                menu.classList.contains("show")
-                    ? "✕"
-                    : "☰";
-
+            toggle.textContent = menu.classList.contains("show") ? "✕" : "☰";
         });
 
         document.querySelectorAll(".menu a").forEach(link => {
-
             link.addEventListener("click", () => {
-
                 menu.classList.remove("show");
                 toggle.textContent = "☰";
-
             });
-
         });
 
         document.addEventListener("click", (e) => {
-
-            if (
-                !menu.contains(e.target) &&
-                !toggle.contains(e.target)
-            ) {
-
+            if (!menu.contains(e.target) && !toggle.contains(e.target)) {
                 menu.classList.remove("show");
                 toggle.textContent = "☰";
-
             }
-
         });
 
-        // ================= API =================
+        // ================= API LOAD POSTS =================
+        const api = "https://script.google.com/macros/s/AKfycbzs21sCd4Yewd3aEe4MAjzMhOWn6DTPCeJid05KJnSXyrX_nHYMXm_dETfxSh0EJmLFOw/exec";
 
-        const api =
-            "https://script.google.com/macros/s/AKfycbzs21sCd4Yewd3aEe4MAjzMhOWn6DTPCeJid05KJnSXyrX_nHYMXm_dETfxSh0EJmLFOw/exec";
+        const avatars = ["🏕️", "🔥", "🌻", "🌟", "📸", "🎒", "⛺"];
 
-        // ================= LOAD POSTS =================
+        function getRandomAvatar(name) {
+            let charCode = 0;
+            for (let i = 0; i < name.length; i++) charCode += name.charCodeAt(i);
+            return avatars[charCode % avatars.length];
+        }
 
         function loadPosts() {
-
             fetch(api)
                 .then(res => res.json())
                 .then(data => {
-
                     const posts = document.getElementById("posts");
-                    document.getElementById("postCount").textContent =
-                    `📸 ${data.length} khoảnh khắc đã được chia sẻ`;        
+                    document.getElementById("postCount").innerHTML = `✨ <strong>${data.length}</strong> khoảnh khắc đã chia sẻ`;
                     posts.innerHTML = "";
 
-                    data.forEach(post => {
-
+                    data.forEach((post, pIndex) => {
                         let imageHTML = "";
 
-                        // ===== 1 ảnh =====
-
+                        // ===== 1 Ảnh =====
                         if (post.images.length === 1) {
-
                             imageHTML = `
-                            <img
-                                src="${post.images[0]}"
-                                class="post-image">
-                             <img loading="lazy"...>   
-                        `;
-
-                        }
-
-                        // ===== nhiều ảnh =====
-
-                        else {
-
-                            imageHTML = `
-                            <div class="slider"
-                                data-images='${JSON.stringify(post.images)}'>
-        
-                                <button class="prev">‹</button>
-        
-                                <img
-                                    src="${post.images[0]}"
-                                    class="slider-image">
-        
-                                <button class="next">›</button>
-        
-                                <div class="counter">
-                                    1 / ${post.images.length}
+                                <div class="post-media">
+                                    <img src="${post.images[0]}" class="post-image zoomable" loading="lazy" alt="Ảnh kỷ niệm">
                                 </div>
-        
-                            </div>
-                        `;
-
+                            `;
+                        } 
+                        // ===== Nhiều Ảnh =====
+                        else {
+                            imageHTML = `
+                                <div class="post-media slider" data-images='${JSON.stringify(post.images)}'>
+                                    <button class="slider-btn prev" type="button">‹</button>
+                                    <img src="${post.images[0]}" class="slider-image zoomable" loading="lazy" alt="Ảnh kỷ niệm">
+                                    <button class="slider-btn next" type="button">›</button>
+                                    <div class="slider-counter">1 / ${post.images.length}</div>
+                                </div>
+                            `;
                         }
+
+                        const avatarEmoji = getRandomAvatar(post.name || "Trại sinh");
+                        const timeFormatted = post.time ? new Date(post.time).toLocaleString("vi-VN", {
+                            hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit'
+                        }) : "Mới đây";
 
                         posts.innerHTML += `
-        
-                        <div class="post">
-        
-                            <div class="post-header">
-                                👤 ${post.name}
-                            </div>
-        
-                            ${imageHTML}
-        
-                            <div class="post-caption">
-                                ${post.caption}
-                            </div>
-        
-                            <div class="post-time">
-                                ${new Date(post.time).toLocaleString("vi-VN")}
-                            </div>
-        
-                        </div>
-        
-                    `;
+                            <article class="post-card glass">
+                                <header class="post-card-header">
+                                    <div class="user-avatar">${avatarEmoji}</div>
+                                    <div class="user-info">
+                                        <strong class="user-name">${post.name || "Trại sinh ẩn danh"}</strong>
+                                        <span class="post-time">${timeFormatted}</span>
+                                    </div>
+                                </header>
 
+                                ${imageHTML}
+
+                                <div class="post-card-body">
+                                    <p class="post-caption">${post.caption || ""}</p>
+                                </div>
+
+                                <footer class="post-card-footer">
+                                    <button class="like-btn" onclick="toggleLike(this)">
+                                        <span class="heart-icon">❤️</span> 
+                                        <span class="like-count">Thả tim</span>
+                                    </button>
+                                </footer>
+                            </article>
+                        `;
                     });
 
-                    // ================= SLIDER =================
-
-                    document.querySelectorAll(".slider").forEach(slider => {
-
-                        const images =
-                            JSON.parse(slider.dataset.images);
-
-                        let index = 0;
-
-                        const img =
-                            slider.querySelector(".slider-image");
-
-                        const counter =
-                            slider.querySelector(".counter");
-
-                        slider.querySelector(".next").onclick = () => {
-
-                            index++;
-
-                            if (index >= images.length)
-                                index = 0;
-
-                            img.src = images[index];
-
-                            counter.textContent =
-                                `${index + 1} / ${images.length}`;
-
-                        };
-
-                        slider.querySelector(".prev").onclick = () => {
-
-                            index--;
-
-                            if (index < 0)
-                                index = images.length - 1;
-
-                            img.src = images[index];
-
-                            counter.textContent =
-                                `${index + 1} / ${images.length}`;
-
-                        };
-
-                    });
-
+                    // Init Slider & Lightbox sau khi render
+                    initSliders();
+                    initLightbox();
+                })
+                .catch(err => {
+                    console.error(err);
+                    document.getElementById("posts").innerHTML = `<p class="error-msg">Không thể tải khoảnh khắc. Vui lòng thử lại sau!</p>`;
                 });
+        }
 
+        // ================= SLIDER LOGIC =================
+        function initSliders() {
+            document.querySelectorAll(".slider").forEach(slider => {
+                const images = JSON.parse(slider.dataset.images);
+                let index = 0;
+
+                const img = slider.querySelector(".slider-image");
+                const counter = slider.querySelector(".slider-counter");
+
+                slider.querySelector(".next").onclick = (e) => {
+                    e.stopPropagation();
+                    index = (index + 1) % images.length;
+                    img.src = images[index];
+                    counter.textContent = `${index + 1} / ${images.length}`;
+                };
+
+                slider.querySelector(".prev").onclick = (e) => {
+                    e.stopPropagation();
+                    index = (index - 1 + images.length) % images.length;
+                    img.src = images[index];
+                    counter.textContent = `${index + 1} / ${images.length}`;
+                };
+            });
+        }
+
+        // ================= LIKE BUTTON LOGIC =================
+        function toggleLike(btn) {
+            btn.classList.toggle("liked");
+            const countSpan = btn.querySelector(".like-count");
+            if (btn.classList.contains("liked")) {
+                countSpan.textContent = "Đã thả tim";
+            } else {
+                countSpan.textContent = "Thả tim";
+            }
+        }
+
+        // ================= LIGHTBOX LOGIC =================
+        function initLightbox() {
+            const modal = document.getElementById("imageModal");
+            const modalImg = document.getElementById("modalImg");
+            const closeBtn = document.querySelector(".close-modal");
+
+            document.querySelectorAll(".zoomable").forEach(img => {
+                img.onclick = function() {
+                    modal.style.display = "flex";
+                    modalImg.src = this.src;
+                }
+            });
+
+            closeBtn.onclick = () => modal.style.display = "none";
+            modal.onclick = (e) => {
+                if (e.target === modal) modal.style.display = "none";
+            };
         }
 
         loadPosts();
-
     </script>
 </body>
 
