@@ -26,7 +26,7 @@
                 </a>
             </div>
 
-            <button class="menu-toggle" aria-label="Toggle Navigation">☰</button>
+            <button class="menu-toggle" type="button" aria-label="Toggle Navigation">☰</button>
 
             <div class="menu">
                 <a href="../index.html">Home</a>
@@ -44,11 +44,16 @@
             <span class="page-title-badge">✨ MEMORIES GALLERY</span>
             <h1>Khoảnh khắc Kỷ niệm 📸</h1>
             <p>Lưu giữ từng nụ cười và hành trình đáng nhớ tại trại.</p>
-            <p style="font-size:0.8rem; color:#666; margin-top:4px;">💡 <em>Mẹo: Nhấn đúp 2 lần vào ảnh để thả tim nhanh nhé!</em></p>
             <div id="postCount" class="gallery-count-pill" style="margin-top:15px;">
                 📸 Đang tải dữ liệu...
             </div>
         </section>
+
+        <!-- Thanh lọc Hashtag -->
+        <!-- Thanh lọc theo Ngày (Tự động sinh nút) -->
+        <div class="filter-hashtags" id="filterContainer">
+            <button class="tag-btn active" data-filter="all">Tất cả</button>
+        </div>
 
         <section class="gallery-feed">
             <div id="posts" class="posts-grid">
@@ -59,7 +64,9 @@
             </div>
         </section>
 
-        <a href="https://forms.gle/Zti5JjRxk8KxdCaSA" target="_blank" rel="noopener" class="floating-upload-btn" title="Đăng ảnh ngay">
+        <!-- Nút gửi ảnh floating -->
+        <a href="https://forms.gle/Zti5JjRxk8KxdCaSA" target="_blank" rel="noopener" class="floating-upload-btn"
+            title="Đăng ảnh ngay">
             <span class="fab-icon">📤</span>
             <span class="fab-text">Gửi ảnh kỷ niệm</span>
         </a>
@@ -71,7 +78,7 @@
         <img class="modal-content" id="modalImg" alt="Xem phóng to">
     </div>
 
-    <!-- Toast thông báo nhỏ -->
+    <!-- Toast thông báo -->
     <div id="toast" class="toast-msg">🔗 Đã sao chép liên kết bài viết!</div>
 
     <footer>
@@ -79,51 +86,136 @@
     </footer>
 
     <script>
-        // Toggle Navigation Mobile
+        // 1. Quản lý Toggle Navigation Mobile
         const toggle = document.querySelector(".menu-toggle");
         const menu = document.querySelector(".menu");
-
+    
         toggle.addEventListener("click", () => {
             menu.classList.toggle("show");
             toggle.textContent = menu.classList.contains("show") ? "✕" : "☰";
         });
-
+    
         document.addEventListener("click", (e) => {
             if (!menu.contains(e.target) && !toggle.contains(e.target)) {
                 menu.classList.remove("show");
                 toggle.textContent = "☰";
             }
         });
-
-        const api = "https://script.google.com/macros/s/AKfycbzs21sCd4Yewd3aEe4MAjzMhOWn6DTPCeJid05KJnSXyrX_nHYMXm_dETfxSh0EJmLFOw/exec";
+    
+        // 2. Cấu hình API & Dữ liệu
+        const scriptURL = "https://script.google.com/macros/s/AKfycbwVg5aw6KhDB6nnQWD1vvGBPIZVnJcka5BItjkbGLsp8-G0bruh3FXhsmv1iAk0kUvkeg/exec?action=gallery";
         const avatars = ["🏕️", "🔥", "🌻", "🌟", "📸", "🎒", "⛺"];
-        const sampleTags = ["#KyNiemTrai", "#NgoyenNghieng", "#KhoanhKhac", "#TuoiTre"];
-
+    
         function getRandomAvatar(name) {
             let charCode = 0;
             for (let i = 0; i < name.length; i++) charCode += name.charCodeAt(i);
             return avatars[charCode % avatars.length];
         }
-
+    
+        // 💡 HÀM MỚI 1: Phân tích và định dạng ngày tháng an toàn
+        function parsePostDate(timeStr) {
+            if (!timeStr) return null;
+    
+            let d = new Date(timeStr);
+    
+            // Xử lý chuỗi ngày dạng DD/MM/YYYY hoặc DD-MM-YYYY
+            if (isNaN(d.getTime()) && typeof timeStr === 'string') {
+                const match = timeStr.match(/(\d{1,2})[\/\-](\d{1,2})[\/\-]?(\d{4})?/);
+                if (match) {
+                    const day = match[1].padStart(2, '0');
+                    const month = match[2].padStart(2, '0');
+                    const year = match[3] || new Date().getFullYear();
+                    d = new Date(`${year}-${month}-${day}`);
+                }
+            }
+    
+            if (isNaN(d.getTime())) return null;
+    
+            const day = String(d.getDate()).padStart(2, '0');
+            const month = String(d.getMonth() + 1).padStart(2, '0');
+            const hours = String(d.getHours()).padStart(2, '0');
+            const mins = String(d.getMinutes()).padStart(2, '0');
+            
+            const weekdays = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"];
+            const weekday = weekdays[d.getDay()];
+    
+            return {
+                filterValue: `${day}/${month}`,                  // Giá trị lọc: 27/07
+                label: `${weekday} ${day}/${month}`,            // Nhãn hiển thị trên nút: T2 27/07
+                displayTime: `${hours}:${mins}, ${day}/${month}`, // Thời gian hiển thị trên bài viết
+                timestamp: d.getTime()
+            };
+        }
+    
+        // 💡 HÀM MỚI 2: Tự động render danh sách các nút lọc theo ngày đăng
+        function renderDynamicFilterButtons(postsData) {
+            const container = document.getElementById("filterContainer");
+            if (!container) return;
+    
+            const dateMap = new Map();
+    
+            // Lọc ra danh sách các ngày duy nhất có bài viết
+            postsData.forEach(post => {
+                const dateInfo = parsePostDate(post.time);
+                if (dateInfo && !dateMap.has(dateInfo.filterValue)) {
+                    dateMap.set(dateInfo.filterValue, dateInfo);
+                }
+            });
+    
+            // Sắp xếp các ngày theo thứ tự thời gian tăng dần
+            const sortedDates = Array.from(dateMap.values()).sort((a, b) => a.timestamp - b.timestamp);
+    
+            // Tạo nút HTML
+            let buttonsHTML = `<button class="tag-btn active" data-filter="all">Tất cả</button>`;
+            sortedDates.forEach(d => {
+                buttonsHTML += `<button class="tag-btn" data-filter="${d.filterValue}">${d.label}</button>`;
+            });
+    
+            container.innerHTML = buttonsHTML;
+        }
+    
+        // 3. Tải bài viết từ Google Sheet
         function loadPosts() {
-            fetch(api)
+            const likedPosts = JSON.parse(localStorage.getItem("liked_gallery_posts") || "[]");
+    
+            fetch(scriptURL)
                 .then(res => res.json())
                 .then(data => {
                     const posts = document.getElementById("posts");
                     document.getElementById("postCount").innerHTML = `✨ <strong>${data.length}</strong> khoảnh khắc đã chia sẻ`;
-                    posts.innerHTML = "";
-
+    
+                    if (!data || data.length === 0) {
+                        posts.innerHTML = `<p class="text-center" style="width:100%; color:#fff;">Chưa có ảnh nào được đăng.</p>`;
+                        return;
+                    }
+    
+                    // ⚡ Tự động tạo nút lọc ngày từ dữ liệu lấy về
+                    renderDynamicFilterButtons(data);
+    
+                    let htmlContent = "";
+    
                     data.forEach((post, idx) => {
+                        const postId = post.id || `post-${idx}`;
+                        const isLiked = likedPosts.includes(postId);
+    
+                        const dateInfo = parsePostDate(post.time);
+                        const filterDate = dateInfo ? dateInfo.filterValue : "";
+                        const displayTime = dateInfo ? dateInfo.displayTime : "Mới đây";
+    
+                        // Tạo HTML ảnh
                         let imageHTML = "";
-                        if (post.images.length === 1) {
+                        if (!post.images || post.images.length === 0) {
+                            imageHTML = "";
+                        } else if (post.images.length === 1) {
                             imageHTML = `
-                                <div class="post-media" data-post-id="${post.id}">
+                                <div class="post-media" data-post-id="${postId}">
                                     <img src="${post.images[0]}" class="post-image zoomable" loading="lazy" alt="Ảnh kỷ niệm">
                                 </div>
                             `;
                         } else {
+                            const safeImages = JSON.stringify(post.images).replace(/'/g, "&apos;");
                             imageHTML = `
-                                <div class="post-media slider" data-post-id="${post.id}" data-images='${JSON.stringify(post.images)}'>
+                                <div class="post-media slider" data-post-id="${postId}" data-images='${safeImages}'>
                                     <button class="slider-btn prev" type="button">‹</button>
                                     <img src="${post.images[0]}" class="slider-image zoomable" loading="lazy" alt="Ảnh kỷ niệm">
                                     <button class="slider-btn next" type="button">›</button>
@@ -131,78 +223,90 @@
                                 </div>
                             `;
                         }
-
+    
                         const avatarEmoji = getRandomAvatar(post.name || "Trại sinh");
-                        const timeFormatted = post.time ? new Date(post.time).toLocaleString("vi-VN", {
-                            hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit'
-                        }) : "Mới đây";
-
                         const initialLikes = post.likes || 0;
-                        const randomTag = sampleTags[idx % sampleTags.length];
-
-                        posts.innerHTML += `
-                            <article class="post-card glass" data-id="${post.id}">
+    
+                        htmlContent += `
+                            <article class="post-card glass" data-id="${postId}" data-date="${filterDate}">
                                 <header class="post-card-header">
                                     <div class="user-avatar-wrap">
                                         <div class="user-avatar">${avatarEmoji}</div>
                                     </div>
                                     <div class="user-info">
                                         <strong class="user-name">${post.name || "Trại sinh ẩn danh"}</strong>
-                                        <span class="post-time">🕒 ${timeFormatted}</span>
+                                        <span class="post-time">🕒 ${displayTime}</span>
                                     </div>
                                 </header>
-
+    
                                 ${imageHTML}
-
+    
                                 <div class="post-card-body">
                                     <p class="post-caption">${post.caption || ""}</p>
-                                    <div class="post-tags">
-                                        <span class="tag-badge">${randomTag}</span>
-                                        <span class="tag-badge">#HoiTrai2026</span>
-                                    </div>
                                 </div>
-
+    
                                 <footer class="post-card-footer">
                                     <div class="action-btns-group">
-                                        <button class="action-btn like-btn" onclick="toggleLike(this, '${post.id}')">
+                                        <button class="action-btn like-btn ${isLiked ? 'liked' : ''}" onclick="toggleLike(this, '${postId}')">
                                             <span class="heart-icon">❤️</span> 
                                             <span class="like-count" data-count="${initialLikes}">${initialLikes}</span>
-                                        </button>
-                                        <button class="action-btn share-btn" onclick="sharePost('${post.id}')">
-                                            <span>🔗 Chia sẻ</span>
                                         </button>
                                     </div>
                                 </footer>
                             </article>
                         `;
                     });
-
+    
+                    posts.innerHTML = htmlContent;
+    
                     initSliders();
                     initLightbox();
                     initDoubleTapToLike();
+                    initTagFilter(); // Gán lại sự kiện lọc cho các nút mới tạo
                 })
                 .catch(err => {
-                    console.error(err);
-                    document.getElementById("posts").innerHTML = `<p class="error-msg">Không thể tải khoảnh khắc. Vui lòng thử lại sau!</p>`;
+                    console.error("Lỗi tải Gallery:", err);
+                    document.getElementById("posts").innerHTML = `<p class="error-msg" style="color:#ff6b6b; text-align: center; width: 100%;">⚠️ Không thể tải khoảnh khắc. Vui lòng kiểm tra kết nối mạng!</p>`;
                 });
         }
-
-        // Tính năng NỔ TIM KHỔNG LỒ khi double tap vào ảnh
+    
+        // 4. Lọc bài viết theo Ngày
+        function initTagFilter() {
+            const filterBtns = document.querySelectorAll(".tag-btn");
+    
+            filterBtns.forEach(btn => {
+                btn.onclick = () => {
+                    filterBtns.forEach(b => b.classList.remove("active"));
+                    btn.classList.add("active");
+    
+                    const filterValue = btn.getAttribute("data-filter");
+                    const postCards = document.querySelectorAll(".post-card");
+    
+                    postCards.forEach(card => {
+                        const cardDate = card.getAttribute("data-date") || "";
+                        
+                        if (filterValue === "all" || cardDate === filterValue) {
+                            card.style.display = "block";
+                        } else {
+                            card.style.display = "none";
+                        }
+                    });
+                };
+            });
+        }
+    
+        // 5. Thả tim Double Tap vào ảnh
         function initDoubleTapToLike() {
             document.querySelectorAll(".post-media").forEach(mediaEl => {
                 let lastTap = 0;
-                mediaEl.addEventListener("click", function(e) {
-                    // Tránh trigger khi click nút slider prev/next
+                mediaEl.addEventListener("click", function (e) {
                     if (e.target.classList.contains("slider-btn")) return;
-
+    
                     const currentTime = new Date().getTime();
                     const tapLength = currentTime - lastTap;
-
+    
                     if (tapLength < 300 && tapLength > 0) {
-                        // Tạo hiệu ứng tim bay bùng nổ
                         createHeartPop(this);
-
-                        // Trigger tự động thả tim nút bên dưới
                         const card = this.closest(".post-card");
                         const likeBtn = card.querySelector(".like-btn");
                         if (!likeBtn.classList.contains("liked")) {
@@ -213,32 +317,33 @@
                 });
             });
         }
-
+    
         function createHeartPop(container) {
             const heart = document.createElement("div");
             heart.className = "heart-overlay";
             heart.innerHTML = "💖";
             container.appendChild(heart);
-
+    
             setTimeout(() => {
                 heart.remove();
             }, 800);
         }
-
+    
+        // 6. Xử lý Slide Ảnh
         function initSliders() {
             document.querySelectorAll(".slider").forEach(slider => {
                 const images = JSON.parse(slider.dataset.images);
                 let index = 0;
                 const img = slider.querySelector(".slider-image");
                 const counter = slider.querySelector(".slider-counter");
-
+    
                 slider.querySelector(".next").onclick = (e) => {
                     e.stopPropagation();
                     index = (index + 1) % images.length;
                     img.src = images[index];
                     counter.textContent = `${index + 1} / ${images.length} 📸`;
                 };
-
+    
                 slider.querySelector(".prev").onclick = (e) => {
                     e.stopPropagation();
                     index = (index - 1 + images.length) % images.length;
@@ -247,57 +352,56 @@
                 };
             });
         }
-
+    
+        // 7. Lightbox Phóng To Ảnh
         function initLightbox() {
             const modal = document.getElementById("imageModal");
             const modalImg = document.getElementById("modalImg");
             const closeBtn = document.querySelector(".close-modal");
-
+    
             document.querySelectorAll(".zoomable").forEach(img => {
-                img.onclick = function(e) {
-                    // Chỉ mở modal phóng to nếu không phải double tap
+                img.onclick = function () {
                     modal.style.display = "flex";
                     modalImg.src = this.src;
                 }
             });
-
+    
             closeBtn.onclick = () => modal.style.display = "none";
             modal.onclick = (e) => {
                 if (e.target === modal) modal.style.display = "none";
             };
         }
-
+    
+        // 8. Xử lý Thả Tim & Lưu LocalStorage
         function toggleLike(btn, postId) {
             btn.classList.toggle("liked");
             const countSpan = btn.querySelector(".like-count");
             let currentLikes = parseInt(countSpan.dataset.count || 0);
-
+    
+            let likedPosts = JSON.parse(localStorage.getItem("liked_gallery_posts") || "[]");
+    
             if (btn.classList.contains("liked")) {
                 currentLikes += 1;
+                if (!likedPosts.includes(postId)) likedPosts.push(postId);
+                showToast("❤️ Đã thả tim bài viết!");
             } else {
                 currentLikes = Math.max(0, currentLikes - 1);
+                likedPosts = likedPosts.filter(id => id !== postId);
             }
-
+    
             countSpan.dataset.count = currentLikes;
             countSpan.textContent = currentLikes;
-
-            fetch(api, {
+            localStorage.setItem("liked_gallery_posts", JSON.stringify(likedPosts));
+    
+            fetch(scriptURL, {
                 method: "POST",
                 mode: "no-cors",
                 headers: { "Content-Type": "text/plain" },
                 body: JSON.stringify({ action: "like", postId: postId })
             }).catch(err => console.log("Lỗi lưu tim:", err));
         }
-
-        function sharePost(postId) {
-            const shareUrl = window.location.href.split('#')[0] + '#post-' + postId;
-            navigator.clipboard.writeText(shareUrl).then(() => {
-                showToast("🔗 Đã sao chép liên kết bài viết!");
-            }).catch(() => {
-                showToast("🔗 Đã sao chép link!");
-            });
-        }
-
+    
+        // 9. Hiển thị Toast
         function showToast(message) {
             const toast = document.getElementById("toast");
             toast.textContent = message;
@@ -306,8 +410,20 @@
                 toast.classList.remove("show");
             }, 2500);
         }
+    
+        // Khởi chạy khi load trang
+        document.addEventListener("DOMContentLoaded", loadPosts);
+    </script>
 
-        loadPosts();
+    <!-- 10. Đăng ký Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('../sw.js')
+                    .then(reg => console.log('SW đã đăng ký thành công!'))
+                    .catch(err => console.log('Lỗi đăng ký SW:', err));
+            });
+        }
     </script>
 </body>
 
