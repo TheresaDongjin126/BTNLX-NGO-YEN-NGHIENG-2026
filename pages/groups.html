@@ -15,6 +15,299 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="BTN LX">
+
+    <style>
+        /* ==========================================
+           FIX TRIỆT ĐỂ Ô TÌM KIẾM (SINGLE CAPSULE FLEXBOX)
+           ========================================== */
+        .search-wrapper {
+            margin-top: 22px;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            background: transparent !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            border: none !important;
+        }
+
+        .search-box-v2 {
+            display: flex !important;
+            align-items: center !important;
+            width: 100% !important;
+            max-width: 480px !important;
+            background: #ffffff !important;
+            border: 2px solid #2d5a27 !important;
+            border-radius: 30px !important;
+            padding: 4px 18px !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08) !important;
+            transition: all 0.25s ease !important;
+        }
+
+        .search-box-v2:focus-within {
+            border-color: #4b783f !important;
+            box-shadow: 0 6px 20px rgba(45, 90, 39, 0.25) !important;
+            transform: translateY(-1px);
+        }
+
+        .search-icon {
+            font-size: 1.15rem !important;
+            margin-right: 10px !important;
+            user-select: none !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            line-height: 1 !important;
+        }
+
+        .search-box-v2 input {
+            flex: 1 !important;
+            width: 100% !important;
+            border: none !important;
+            outline: none !important;
+            background: transparent !important;
+            padding: 10px 0 !important;
+            color: #1a1a1a !important;
+            font-size: 0.95rem !important;
+            font-weight: 500 !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+        }
+
+        .search-box-v2 input::placeholder {
+            color: #777777 !important;
+            font-weight: 400 !important;
+        }
+
+        /* Thống kê nhanh */
+        .quick-stats {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 24px;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            margin-top: 15px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stat-num {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #2d5a27;
+        }
+
+        .stat-label {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #444;
+        }
+
+        .stat-divider {
+            width: 1px;
+            height: 20px;
+            background: #ddd;
+        }
+
+        /* Lưới Thẻ Nhóm */
+        .groups-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 22px;
+            margin-top: 30px;
+        }
+
+        /* Thẻ Nhóm (Group Card) */
+        .group-card {
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 18px;
+            padding: 20px;
+            border: 1px solid rgba(45, 90, 39, 0.15);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .group-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
+            padding-bottom: 10px;
+        }
+
+        .group-badge {
+            color: #ffffff;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.92rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* 🎨 Bộ 8 màu Badge dành cho 8 Nhóm Trại */
+        .group-badge.badge-green {
+            background-color: #2d5a27 !important;
+        }
+
+        /* Nhóm 1: Xanh lá */
+        .group-badge.badge-red {
+            background-color: #c62828 !important;
+        }
+
+        /* Nhóm 2: Đỏ */
+        .group-badge.badge-blue {
+            background-color: #1565c0 !important;
+        }
+
+        /* Nhóm 3: Xanh dương */
+        .group-badge.badge-orange {
+            background-color: #ef6c00 !important;
+        }
+
+        /* Nhóm 4: Cam */
+        .group-badge.badge-purple {
+            background-color: #6a1b9a !important;
+        }
+
+        /* Nhóm 5: Tím */
+        .group-badge.badge-yellow {
+            background-color: #fbc02d !important;
+            color: #222 !important;
+        }
+
+        /* Nhóm 6: Vàng */
+        .group-badge.badge-pink {
+            background-color: #d81b60 !important;
+        }
+
+        /* Nhóm 7: Hồng */
+        .group-badge.badge-teal {
+            background-color: #00838f !important;
+        }
+
+        /* Nhóm 8: Xanh ngọc */
+
+        .group-badge .dot {
+            width: 8px;
+            height: 8px;
+            background-color: #ffeb3b;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .member-count {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #2d5a27;
+            background: #e8f5e9;
+            padding: 4px 10px;
+            border-radius: 12px;
+        }
+
+        /* Khung Trưởng Nhóm */
+        .leader-box {
+            background: linear-gradient(135deg, #fffdf0, #fff3cd);
+            border: 1px solid #ffeeba;
+            border-radius: 12px;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .leader-box .crown {
+            font-size: 1.5rem;
+        }
+
+        .leader-info .role {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            color: #856404;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            display: block;
+        }
+
+        .leader-info .name {
+            font-size: 1rem;
+            color: #222222;
+            font-weight: 700;
+        }
+
+        /* Danh sách Thành viên */
+        .members-section h4 {
+            font-size: 0.85rem;
+            color: #2d5a27;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 700;
+        }
+
+        .members-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .chip {
+            background: #f1f8e9;
+            color: #1b5e20;
+            padding: 5px 12px;
+            border-radius: 16px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid rgba(45, 90, 39, 0.12);
+        }
+
+        .loading-state,
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 16px;
+            color: #2d5a27;
+            font-weight: 600;
+        }
+
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border-left-color: #2d5a27;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 12px auto;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -45,19 +338,19 @@
             <h1>Danh Sách Nhóm Trại 🏕️</h1>
             <p>Tra cứu thông tin nhóm trại, trưởng nhóm và các đồng đội của bạn.</p>
 
-            <div class="quick-stats" style="margin-top: 15px;">
+            <div class="quick-stats">
                 <div class="stat-item">
-                    <span class="stat-num">8</span>
+                    <span class="stat-num" id="statGroups">-</span>
                     <span class="stat-label">Nhóm trại</span>
                 </div>
                 <div class="stat-divider"></div>
                 <div class="stat-item">
-                    <span class="stat-num">90</span>
+                    <span class="stat-num" id="statCampers">-</span>
                     <span class="stat-label">Trại sinh</span>
                 </div>
             </div>
 
-            <div class="search-wrapper" style="margin-top: 15px;">
+            <div class="search-wrapper">
                 <div class="search-box-v2">
                     <span class="search-icon">🔍</span>
                     <input type="text" id="searchInput" placeholder="Tìm tên thành viên hoặc tên nhóm...">
@@ -65,51 +358,10 @@
             </div>
         </section>
 
-        <section class="groups-grid">
-            <div class="group-card glass" data-group="nhom-1">
-                <div class="card-header">
-                    <span class="group-badge badge-green"><span class="dot"></span> Nhóm 1</span>
-                    <span class="member-count">👥 10 Thành viên</span>
-                </div>
-                <div class="leader-box">
-                    <span class="crown">👑</span>
-                    <div class="leader-info">
-                        <span class="role">Trưởng nhóm</span>
-                        <strong class="name">Nguyễn Đào Xuân Bách</strong>
-                    </div>
-                </div>
-                <div class="members-section">
-                    <h4>Thành viên</h4>
-                    <div class="members-chips">
-                        <span class="chip">Trần Văn B</span>
-                        <span class="chip">Lê Thị C</span>
-                        <span class="chip">Phạm Văn D</span>
-                        <span class="chip">Hoàng Thị E</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="group-card glass" data-group="nhom-2">
-                <div class="card-header">
-                    <span class="group-badge badge-orange"><span class="dot"></span> Nhóm 2</span>
-                    <span class="member-count">👥 10 Thành viên</span>
-                </div>
-                <div class="leader-box">
-                    <span class="crown">👑</span>
-                    <div class="leader-info">
-                        <span class="role">Trưởng nhóm</span>
-                        <strong class="name">Tô Đoàn Bảo Ngọc</strong>
-                    </div>
-                </div>
-                <div class="members-section">
-                    <h4>Thành viên</h4>
-                    <div class="members-chips">
-                        <span class="chip">Vũ Thị G</span>
-                        <span class="chip">Bùi Văn H</span>
-                        <span class="chip">Đỗ Thị I</span>
-                        <span class="chip">Nông Văn K</span>
-                    </div>
-                </div>
+        <section class="groups-grid" id="groupsGrid">
+            <div class="loading-state">
+                <div class="spinner"></div>
+                <p>⏳ Đang tải dữ liệu danh sách nhóm...</p>
             </div>
         </section>
     </main>
@@ -119,6 +371,7 @@
     </footer>
 
     <script>
+        // 1. Quản lý Menu Toggle Mobile
         const toggle = document.querySelector(".menu-toggle");
         const menu = document.querySelector(".menu");
 
@@ -134,22 +387,118 @@
             }
         });
 
-        // Search Filter Logic
-        const searchInput = document.getElementById("searchInput");
-        const cards = document.querySelectorAll(".group-card");
+        // 2. Cấu hình SCRIPT_URL
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwVg5aw6KhDB6nnQWD1vvGBPIZVnJcka5BItjkbGLsp8-G0bruh3FXhsmv1iAk0kUvkeg/exec?action=groups";
 
-        searchInput.addEventListener("input", function() {
-            const query = this.value.toLowerCase().trim();
+        // 3. Hàm tải dữ liệu Nhóm từ Google Sheet
+        async function fetchGroupsData() {
+            const grid = document.getElementById("groupsGrid");
 
-            cards.forEach(card => {
-                const text = card.textContent.toLowerCase();
-                if (text.includes(query)) {
-                    card.style.display = "flex";
-                } else {
-                    card.style.display = "none";
+            try {
+                const response = await fetch(SCRIPT_URL);
+                const data = await response.json();
+
+                grid.innerHTML = "";
+
+                if (!data || data.length === 0) {
+                    grid.innerHTML = `<div class="no-results">❌ Chưa có dữ liệu nhóm trại.</div>`;
+                    document.getElementById("statGroups").textContent = "0";
+                    document.getElementById("statCampers").textContent = "0";
+                    return;
+                }
+
+                let totalCampers = 0;
+                document.getElementById("statGroups").textContent = data.length;
+
+                data.forEach((group, index) => {
+                    const memberCount = (group.members ? group.members.length : 0) + (group.leader ? 1 : 0);
+                    totalCampers += memberCount;
+
+                    const membersHtml = group.members && group.members.length > 0
+                        ? group.members.map(m => `<span class="chip">${m}</span>`).join('')
+                        : '<span class="chip">Đang cập nhật...</span>';
+
+                    const cardHtml = `
+                        <div class="group-card" data-group="nhom-${index + 1}">
+                            <div class="card-header">
+                                <span class="group-badge ${group.color || 'badge-green'}">
+                                    <span class="dot"></span> ${group.name}
+                                </span>
+                                <span class="member-count">👥 ${memberCount} Thành viên</span>
+                            </div>
+                            <div class="leader-box">
+                                <span class="crown">👑</span>
+                                <div class="leader-info">
+                                    <span class="role">Trưởng nhóm</span>
+                                    <strong class="name">${group.leader || 'Chưa phân công'}</strong>
+                                </div>
+                            </div>
+                            <div class="members-section">
+                                <h4>Thành viên</h4>
+                                <div class="members-chips">
+                                    ${membersHtml}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    grid.insertAdjacentHTML("beforeend", cardHtml);
+                });
+
+                document.getElementById("statCampers").textContent = totalCampers;
+                initSearch();
+
+            } catch (error) {
+                console.error("Lỗi tải danh sách nhóm:", error);
+                grid.innerHTML = `<div class="no-results" style="color: #d32f2f;">⚠️ Không thể kết nối dữ liệu. Vui lòng kiểm tra lại mạng!</div>`;
+            }
+        }
+
+        // 4. Hàm Lọc & Tìm kiếm Nhóm
+        function initSearch() {
+            const searchInput = document.getElementById("searchInput");
+            const grid = document.getElementById("groupsGrid");
+
+            searchInput.addEventListener("input", function () {
+                const query = this.value.toLowerCase().trim();
+                const cards = document.querySelectorAll(".group-card");
+                let visibleCount = 0;
+
+                cards.forEach(card => {
+                    const text = card.textContent.toLowerCase();
+                    if (text.includes(query)) {
+                        card.style.display = "flex";
+                        visibleCount++;
+                    } else {
+                        card.style.display = "none";
+                    }
+                });
+
+                let noResultEl = document.getElementById("noSearchResult");
+                if (visibleCount === 0) {
+                    if (!noResultEl) {
+                        noResultEl = document.createElement("div");
+                        noResultEl.id = "noSearchResult";
+                        noResultEl.className = "no-results";
+                        noResultEl.textContent = "🔍 Không tìm thấy thành viên hoặc nhóm phù hợp.";
+                        grid.appendChild(noResultEl);
+                    }
+                    noResultEl.style.display = "block";
+                } else if (noResultEl) {
+                    noResultEl.style.display = "none";
                 }
             });
-        });
+        }
+
+        document.addEventListener("DOMContentLoaded", fetchGroupsData);
+
+        // 5. Đăng ký Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('../sw.js')
+                    .then(reg => console.log('SW đã đăng ký thành công!'))
+                    .catch(err => console.log('Lỗi đăng ký SW:', err));
+            });
+        }
     </script>
 </body>
 
