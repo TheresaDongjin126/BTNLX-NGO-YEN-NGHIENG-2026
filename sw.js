@@ -10,7 +10,8 @@ const ASSETS_TO_CACHE = [
     '/pages/btc.html',
     '/pages/groups.html',
     '/pages/confession.html',
-    '/pages/gallery.html'
+    '/pages/gallery.html',
+    '/pages/room.html'
 ];
 
 // Cài đặt Service Worker và lưu cache
