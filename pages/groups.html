@@ -328,6 +328,7 @@
                 <a href="btc.html">BTC</a>
                 <a href="groups.html" class="active">Danh sách nhóm</a>
                 <a href="gallery.html">Khoảnh khắc</a>
+                <a href="room.html">Sắp xếp phòng</a>
             </div>
         </nav>
     </header>
@@ -453,18 +454,25 @@
             }
         }
 
+        // Hàm loại bỏ dấu tiếng Việt (đặt ra ngoài để dùng chung và tối ưu hiệu năng)
+        const removeAccents = (str) => str ? str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() : "";
+
         // 4. Hàm Lọc & Tìm kiếm Nhóm
         function initSearch() {
             const searchInput = document.getElementById("searchInput");
             const grid = document.getElementById("groupsGrid");
 
             searchInput.addEventListener("input", function () {
-                const query = this.value.toLowerCase().trim();
+                // 1. Chuyển từ khóa gõ vào thành chuỗi KHÔNG DẤU
+                const query = removeAccents(this.value.trim());
                 const cards = document.querySelectorAll(".group-card");
                 let visibleCount = 0;
 
                 cards.forEach(card => {
-                    const text = card.textContent.toLowerCase();
+                    // 2. Chuyển toàn bộ văn bản trong thẻ thành chuỗi KHÔNG DẤU
+                    const text = removeAccents(card.textContent);
+
+                    // 3. So sánh chuỗi không dấu với nhau
                     if (text.includes(query)) {
                         card.style.display = "flex";
                         visibleCount++;
